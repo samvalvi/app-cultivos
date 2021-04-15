@@ -1,0 +1,14 @@
+.container {
+    margin-left: 200px;
+}
+
+#login {
+  background-image: url("../img/login-image.jpg");
+  height: 350px;
+  width: 300px;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
