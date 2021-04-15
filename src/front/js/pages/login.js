@@ -11,16 +11,20 @@ export const Login = () => {
 					<div className="border rounded" id="login" />
 				</Col>
 				<Col sm={5} className="border rounded">
-					<Form className="mt-2">
+					<Form className="mt-2 mb-4">
+						<h3>Inicio de sesión</h3>
 						<Form.Group controlId="formBasicEmail">
-							<Form.Control type="email" placeholder="Enter email" />
+							<Form.Control type="email" placeholder="correo electrónico" />
 						</Form.Group>
 						<Form.Group controlId="formBasicEmail">
-							<Form.Control type="password" placeholder="Password" />
-							<Form.Text className="text-muted">Forgot password?</Form.Text>
+							<Form.Control type="password" placeholder="contraseña" />
+							<Form.Text className="text-muted">¿Olvido su contraseña?</Form.Text>
 						</Form.Group>
 
-						<Button variant="primary">LOG IN</Button>
+						<Button variant="dark">Confirmar</Button>
+						<Button className="ml-2" variant="light">
+							Cancelar
+						</Button>
 					</Form>
 				</Col>
 			</Row>
