@@ -32,6 +32,9 @@ const Layout = () => {
 						<Route exact path="/login">
 							<Login />
 						</Route>
+						<Route exact path="/recover">
+							<Recover />
+						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
 						</Route>
