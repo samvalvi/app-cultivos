@@ -8,6 +8,7 @@
 
   /* Full height */
   height: 100%;
+  width: 555px;
 
   /* Center and scale the image nicely */
   background-position: center;
@@ -18,7 +19,7 @@
 /* Position text in the middle of the page/image */
 .bg-text {
   background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0, 0.5); /* Black w/opacity/see-through */
+  background-color: rgba(0,0,0, 0.7); /* Black w/opacity/see-through */
   color: white;
   font-weight: bold;
   border: 3px solid #f1f1f1;

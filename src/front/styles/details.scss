@@ -1,0 +1,17 @@
+#bgDetails {
+    background-image: url("../img/home-background.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.circle{
+    width: 200px;
+    height: 200px;
+    border-radius:50%;
+    background-color: red;
+    text-align: center;
+    display: inline;
+    margin-left: 20px;
+}
