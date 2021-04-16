@@ -8,7 +8,7 @@
 
   /* Full height */
   height: 100%;
-  width: 555px;
+  width:100%;
 
   /* Center and scale the image nicely */
   background-position: center;
@@ -33,4 +33,14 @@
   text-align: center;
   height: 400px;
   width: 400px;
+}
+
+@media only screen and (max-width: 600px) {
+  .displayNone{
+      display: none;
+  }
+  body{
+      overflow-x: hidden;
+  }
+   
 }
