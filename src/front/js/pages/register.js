@@ -9,7 +9,7 @@ export const Register = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<Row>
+		<Row className="m-3">
 			<Col lg={6} className="displayNone">
 				<div className="bg-image">
 					<div className="bg-blur" />
