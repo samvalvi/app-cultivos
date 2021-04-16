@@ -44,8 +44,8 @@ def create_user():
         
     user.email = body['email']
     user.password = body['password']
-    user.username = body['lastName']
-    user.username = body['firstName']
+    user.lastName = body['lastName']
+    user.firstName = body['firstName']
     user.is_active =True
     #agrega user a la base de datos
     db.session.add(user)
