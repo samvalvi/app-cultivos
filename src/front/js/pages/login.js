@@ -7,10 +7,10 @@ export const Login = () => {
 	return (
 		<Container>
 			<Row className="pt-5">
-				<Col sm={4}>
+				<Col lg={4} className="displayNone">
 					<div className="border rounded" id="login" />
 				</Col>
-				<Col sm={5} className="border rounded">
+				<Col sm={12} lg={5} className="border rounded">
 					<Form className="mt-2 mb-4">
 						<h3>Inicio de sesión</h3>
 						<Form.Group controlId="formBasicEmail">
