@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import user from "../../img/User.png";
+import "../../styles/profile-card.scss";
 
 export function Info() {
 	return (
@@ -13,16 +15,52 @@ export function Info() {
 			</div>
 			<div className="row">
 				<div className="col">
-					<div className="card" />
+					<div className="card shadow h-100">
+						<img src={user} className="mx-auto mt-3 card-img-top" alt="..." id="perfil" />
+						<div className="card-body">
+							<h5 className="text-center card-title">Ricardo</h5>
+							<p className="card-text">
+								This is a longer card with supporting text below as a natural lead-in to additional
+								content. This content is a little bit longer.
+							</p>
+						</div>
+					</div>
 				</div>
 				<div className="col">
-					<div className="card" />
+					<div className="card shadow h-100">
+						<img src={user} className="mx-auto mt-3 card-img-top" alt="..." id="perfil" />
+						<div className="card-body">
+							<h5 className="text-center card-title">Kevin</h5>
+							<p className="card-text">
+								This is a longer card with supporting text below as a natural lead-in to additional
+								content. This content is a little bit longer.
+							</p>
+						</div>
+					</div>
 				</div>
 				<div className="col">
-					<div className="card" />
+					<div className="card shadow h-100">
+						<img src={user} className="mx-auto mt-3 card-img-top" alt="..." id="perfil" />
+						<div className="card-body">
+							<h5 className="text-center card-title">Eduardo</h5>
+							<p className="card-text">
+								This is a longer card with supporting text below as a natural lead-in to additional
+								content. This content is a little bit longer.
+							</p>
+						</div>
+					</div>
 				</div>
 				<div className="col">
-					<div className="card" />
+					<div className="card shadow h-100">
+						<img src={user} className="mx-auto mt-3 card-img-top" alt="..." id="perfil" />
+						<div className="card-body">
+							<h5 className="text-center card-title">Samuel</h5>
+							<p className="card-text">
+								This is a longer card with supporting text below as a natural lead-in to additional
+								content. This content is a little bit longer.
+							</p>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div className="row justify-content-center p-3">
