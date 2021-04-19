@@ -1,5 +1,6 @@
 import React from "react";
 import { Container, Row, Col, Card, CardColumns } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import Fruta from "../../img/fruta-prueba.jpg";
 
 export function Product() {
@@ -25,7 +26,9 @@ export function Product() {
 								content.
 							</Card.Text>
 							<Card.Text className="float-right">
-								<small>ver más</small>
+								<Link to="/details">
+									<small>ver más</small>
+								</Link>
 							</Card.Text>
 						</Card.Body>
 					</Card>
