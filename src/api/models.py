@@ -27,11 +27,11 @@ class Post(db.Model):
     __tablename__ = 'post'
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), nullable=False)
-    descripcion = db.Column(db.String(120), nullable=False)
-    epoca_siembra = db.Column(db.String(120), nullable=False)
-    clima = db.Column(db.String(120), nullable=False)
-    cosecha = db.Column(db.String(120), nullable=False)
-    plagas = db.Column(db.String(120), nullable=False)
+    descripcion = db.Column(db.String(), nullable=False)
+    epoca_siembra = db.Column(db.String(), nullable=False)
+    clima = db.Column(db.String(), nullable=False)
+    cosecha = db.Column(db.String(), nullable=False)
+    plagas = db.Column(db.String(), nullable=False)
 
     def serialize(self):
         return {
