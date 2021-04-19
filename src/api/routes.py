@@ -24,7 +24,7 @@ def handle_hello():
     return jsonify(response_body), 200
 
 # post user
-@api.route('/user', methods=['POST'])
+@api.route('/user/register', methods=['POST'])
 def create_user():
     body = request.get_json() # get the request body content
     if body is None:
