@@ -1,30 +1,52 @@
 import React from "react";
 import { Form, Image, Container, Row, Col, Button } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
+import fondo from "../../img/login-image.jpg";
 import "../../styles/demo.scss";
 
 export const Login = () => {
 	return (
-		<Container>
-			<Row className="pt-5">
+		<Container className="p-5 mt-5">
+			<Row className="align-items-center">
 				<Col lg={4} className="displayNone">
-					<div className="border rounded" id="login" />
+					<img src={fondo} className="img-fluid" alt="plantas" />
 				</Col>
-				<Col sm={12} lg={5} className="border rounded">
-					<Form className="mt-2 mb-4">
-						<h3>Inicio de sesión</h3>
-						<Form.Group controlId="formBasicEmail">
-							<Form.Control type="email" placeholder="correo electrónico" />
-						</Form.Group>
-						<Form.Group controlId="formBasicEmail">
-							<Form.Control type="password" placeholder="contraseña" />
-							<Form.Text className="text-muted">¿Olvido su contraseña?</Form.Text>
-						</Form.Group>
-
-						<Button variant="dark">Confirmar</Button>
-						<Button className="ml-2" variant="light">
-							Cancelar
-						</Button>
+				<Col sm={12} md={8} lg={8}>
+					<h2>Inicio de sesión</h2>
+					<Form>
+						<Form.Row>
+							<Col lg={12}>
+								<Form.Group controlId="formGroupEmail">
+									<Form.Control type="email" placeholder="Correo electrónico" />
+								</Form.Group>
+							</Col>
+						</Form.Row>
+						<Form.Row>
+							<Col lg={12}>
+								<Form.Group controlId="formGroupPassword">
+									<Form.Control type="password" placeholder="Contraseña" />
+								</Form.Group>
+							</Col>
+						</Form.Row>
+						<Form.Row>
+							<Col lg={8}>
+								<Link className="w-25 btn btn-dark" role="button" variant="dark">
+									Iniciar
+								</Link>{" "}
+								<Link className="w-25 btn btn-light" role="button" to="/" variant="light">
+									Cancelar
+								</Link>
+							</Col>
+						</Form.Row>
+						<Form.Row className="mt-2">
+							<Col>
+								<small>
+									<Link to="/recover" className="text-secondary mt-5">
+										¿Olvidó su contraseña?
+									</Link>
+								</small>
+							</Col>
+						</Form.Row>
 					</Form>
 				</Col>
 			</Row>
