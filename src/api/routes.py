@@ -58,9 +58,24 @@ def create_user():
 
     return jsonify(response_body), 200
 
+@api.route('/user/login', methods=['POST'])
+def login_user():
+    user = User()
+    body = request.get_json()
+    email = request.json.get("email", None)
+    password = request.json.get("password", None)
+    if email != user.email or password != user.password:
+        return jsonify({"msg": "Bad username or password"}), 401
+
+    access_token = create_access_token(identity=username)
+    return jsonify(access_token=access_token)
+
+
 # get de informacion de cultivos
 @api.route('/post', methods=['GET'])
 def list_vegetables():
     all_vegetables = Post.query.all()
     all_vegetables = list(map(lambda x: x.serialize(), all_vegetables))
     return jsonify(all_vegetables), 200
+
+
