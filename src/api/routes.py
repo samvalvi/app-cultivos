@@ -6,13 +6,17 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Post,Fav
 from api.utils import generate_sitemap, APIException
 from werkzeug.security import safe_str_cmp
+import sendgrid
+import os
+from sendgrid.helpers.mail import *
 
 #jwt
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 
-### Test 
 
 api = Blueprint('api', __name__)
+
+API_KEY = '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'
 
 
 @api.route('/hello', methods=['POST', 'GET'])
@@ -74,6 +78,36 @@ def login_user():
     
     return jsonify({ "token": access_token})
 
+
+# get para recuperar contraseña
+@api.route('/user/recover', methods=['GET'])
+@jwt_required()
+def get_password():
+    current_user_id = get_jwt_identity()
+    user = User.filter.get(current_user_id)
+    
+    access_token = create_access_token(identity=user.id)
+
+    body = request.get_json()
+    if body is None:
+        return jsonify({"message":"The request body is empty"}), 400
+    elif 'email' not in body:
+        return jsonify({"message": "You have to specify an email"}), 400
+    else:
+        sg = sendgrid.SendGridAPIClient(api_key=os.environ.get(API_KEY))
+        from_email = Email("test@example.com")
+        to_email = To("samuelvalerin@gmail.com")
+        subject = "Sending with SendGrid is Fun"
+        content = Content("text/plain", "and easy to do anywhere, even with Python")
+        mail = Mail(from_email, to_email, subject, content)
+        response = sg.client.mail.send.post(request_body=mail.get())
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+
+        return jsonify({ "token": access_token}),200
+
+
 # get de informacion de cultivos
 @api.route('/post', methods=['GET'])
 def list_vegetables():
@@ -87,7 +121,6 @@ def list_vegetables():
 @jwt_required()
 def create_favorite():
     current_user_id = get_jwt_identity()
-    
    
     body = request.get_json() # get the request body content
     if body is None:
