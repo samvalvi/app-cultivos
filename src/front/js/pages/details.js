@@ -45,20 +45,20 @@ export const Details = () => {
 				<h3>Productos Recomendados</h3>
 				<hr />
 				<Row className="justify-content-center m">
-					<Col xs={2} md={2}>
-						<Image src="https://via.placeholder.com/100x100" roundedCircle />
+					<Col xs={3} md={2}>
+						<Image className="p-1" src="https://via.placeholder.com/100x100" roundedCircle />
 					</Col>
-					<Col xs={2} md={2}>
-						<Image src="https://via.placeholder.com/100x100" roundedCircle />
+					<Col xs={3} md={2}>
+						<Image className="p-1" src="https://via.placeholder.com/100x100" roundedCircle />
 					</Col>
-					<Col xs={2} md={2}>
-						<Image src="https://via.placeholder.com/100x100" roundedCircle />
+					<Col xs={3} md={2}>
+						<Image className="p-1" src="https://via.placeholder.com/100x100" roundedCircle />
 					</Col>
-					<Col xs={2} md={2}>
-						<Image src="https://via.placeholder.com/100x100" roundedCircle />
+					<Col xs={3} md={2}>
+						<Image className="p-1" src="https://via.placeholder.com/100x100" roundedCircle />
 					</Col>
-					<Col xs={2} md={2}>
-						<Image src="https://via.placeholder.com/100x100" roundedCircle />
+					<Col xs={3} md={2}>
+						<Image className="p-1" src="https://via.placeholder.com/100x100" roundedCircle />
 					</Col>
 				</Row>
 			</Container>

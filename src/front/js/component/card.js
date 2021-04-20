@@ -19,7 +19,14 @@ export function Product() {
 					<Card className="shadow">
 						<Card.Body>
 							<Card.Title>
-								<h5>Categoría</h5>
+								<Row>
+									<Col sm={6} lg={6}>
+										<h5>Categoría</h5>
+									</Col>
+									<Col sm={6} lg={6}>
+										<i className="far fa-heart float-right" />
+									</Col>
+								</Row>
 							</Card.Title>
 							<Card.Text>
 								Some quick example text to build on the card title and make up the bulk of the cards
