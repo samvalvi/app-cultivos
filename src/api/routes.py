@@ -84,9 +84,9 @@ def login_user():
 @jwt_required()
 def get_password():
     current_user_id = get_jwt_identity()
-    user = User.filter.get(current_user_id)
+    user = User.query.filter_by(id=current_user_id)
     
-    access_token = create_access_token(identity=user.id)
+    access_token = create_access_token(identity=user.id) 
 
     body = request.get_json()
     if body is None:
@@ -94,7 +94,7 @@ def get_password():
     elif 'email' not in body:
         return jsonify({"message": "You have to specify an email"}), 400
     else:
-        sg = sendgrid.SendGridAPIClient(api_key=os.environ.get(API_KEY))
+        sendgrid_recovery = sendgrid.SendGridAPIClient(api_key=os.environ.get(API_KEY))
         from_email = Email("test@example.com")
         to_email = To("samuelvalerin@gmail.com")
         subject = "Sending with SendGrid is Fun"
