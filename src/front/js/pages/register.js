@@ -27,7 +27,7 @@ export const Register = () => {
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupEmail">
-									<Form.Control type="text" placeholder="Primer Nombre" />
+									<Form.Control type="text" placeholder="primer nombre" />
 								</Form.Group>
 							</Col>
 						</Form.Row>
@@ -35,7 +35,7 @@ export const Register = () => {
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupEmail">
-									<Form.Control type="text" placeholder="Primer Apellido" />
+									<Form.Control type="text" placeholder="primer apellido" />
 								</Form.Group>
 							</Col>
 						</Form.Row>
@@ -43,7 +43,7 @@ export const Register = () => {
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupEmail">
-									<Form.Control type="email" placeholder="Correo Electrónico" />
+									<Form.Control type="email" placeholder="correo electrónico" />
 								</Form.Group>
 							</Col>
 						</Form.Row>
@@ -51,7 +51,7 @@ export const Register = () => {
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupPassword">
-									<Form.Control type="password" placeholder="Contraseña" />
+									<Form.Control type="password" placeholder="contraseña" />
 								</Form.Group>
 							</Col>
 						</Form.Row>
