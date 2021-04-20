@@ -20,8 +20,10 @@ export function Info() {
 						<div className="card-body">
 							<h5 className="text-center card-title">Ricardo</h5>
 							<p className="card-text">
-								This is a longer card with supporting text below as a natural lead-in to additional
-								content. This content is a little bit longer.
+								<ul>
+									<li>email: cubilloricardo@gmail.com</li>
+									<li>github: https://github.com/ricubi199</li>
+								</ul>
 							</p>
 						</div>
 					</div>
@@ -32,8 +34,10 @@ export function Info() {
 						<div className="card-body">
 							<h5 className="text-center card-title">Kevin</h5>
 							<p className="card-text">
-								This is a longer card with supporting text below as a natural lead-in to additional
-								content. This content is a little bit longer.
+								<ul>
+									<li>email: kev.rdgz@gmail.com</li>
+									<li>github: https://github.com/kevrdgz</li>
+								</ul>
 							</p>
 						</div>
 					</div>
@@ -42,10 +46,12 @@ export function Info() {
 					<div className="card shadow h-100">
 						<img src={user} className="mx-auto mt-3 card-img-top" alt="..." id="perfil" />
 						<div className="card-body">
-							<h5 className="text-center card-title">Eduardo</h5>
+							<h5 className="text-center card-title">Ernesto</h5>
 							<p className="card-text">
-								This is a longer card with supporting text below as a natural lead-in to additional
-								content. This content is a little bit longer.
+								<ul>
+									<li>email: elopezc0308@gmail.com</li>
+									<li>github: https://github.com/Ernesto-03</li>
+								</ul>
 							</p>
 						</div>
 					</div>
@@ -56,8 +62,10 @@ export function Info() {
 						<div className="card-body">
 							<h5 className="text-center card-title">Samuel</h5>
 							<p className="card-text">
-								This is a longer card with supporting text below as a natural lead-in to additional
-								content. This content is a little bit longer.
+								<ul>
+									<li>email: samuelvalerin@gmail.com</li>
+									<li>github: https://github.com/samvalvi</li>
+								</ul>
 							</p>
 						</div>
 					</div>
