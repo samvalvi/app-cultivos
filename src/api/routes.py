@@ -81,3 +81,65 @@ def list_vegetables():
     return jsonify(all_vegetables), 200
 
 
+# post favorites crea favorito
+@api.route('/favorites', methods=['POST'])
+@jwt_required()
+def create_favorite():
+    current_user_id = get_jwt_identity()
+    
+   
+    body = request.get_json() # get the request body content
+    if body is None:
+         return "The request body is null", 400
+    if 'name' not in body:
+        return 'You need to specify the favorite name',400
+  
+ 
+        
+    favorites = Fav()
+    favorites.user_id = current_user_id
+    favorites.name = body['name']
+  
+    #agrega user a la base de datos
+    db.session.add(favorites)
+    #guarda los cambios
+    db.session.commit()
+
+    getfavs  = Fav.query.filter_by(user_id = current_user_id)
+    getfavs = list(map(lambda x: x.serialize(), getfavs))
+    
+    return jsonify(getfavs), 200
+
+#delete favorites 
+@api.route('/favorites', methods=['DELETE'])
+@jwt_required()
+def delete_favorite():
+    current_user_id = get_jwt_identity()
+    
+   
+    body = request.get_json() # get the request body content
+    if body is None:
+         return "The request body is null", 400
+    if 'id' not in body:
+        return 'You need to specify the favorite id',400
+  
+    favorites = Fav()
+    getfavs  = favorites.query.filter_by(user_id = current_user_id , id = body['id']).first()
+    
+        
+    
+  
+    #agrega user a la base de datos
+    db.session.delete(getfavs)
+    #guarda los cambios
+    db.session.commit()
+
+    getfavs  = favorites.query.filter_by(user_id = current_user_id)
+    getfavs = list(map(lambda x: x.serialize(), getfavs))
+    
+
+    
+    
+    return jsonify(getfavs), 200
+
+
