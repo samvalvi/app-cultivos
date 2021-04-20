@@ -1,17 +1,17 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
+import os
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Post
+from api.models import db, User, Post,Fav
 from api.utils import generate_sitemap, APIException
-
-api = Blueprint('api', __name__)
+from werkzeug.security import safe_str_cmp
 
 #jwt
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
-from flask_jwt_extended import JWTManager
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
+
+
+api = Blueprint('api', __name__)
 
 
 @api.route('/hello', methods=['POST', 'GET'])
@@ -60,16 +60,18 @@ def create_user():
 
 @api.route('/user/login', methods=['POST'])
 def login_user():
-    user = User()
-    body = request.get_json()
     email = request.json.get("email", None)
     password = request.json.get("password", None)
-    if email != user.email or password != user.password:
+    # Query your database for username and password
+    user = User.query.filter_by(email=email, password=password).first()
+    if user is None:
+        # the user was not found on the database
         return jsonify({"msg": "Bad username or password"}), 401
-
-    access_token = create_access_token(identity=username)
-    return jsonify(access_token=access_token)
-
+    
+    # create a new token with the user id inside
+    access_token = create_access_token(identity=user.id)
+    
+    return jsonify({ "token": access_token})
 
 # get de informacion de cultivos
 @api.route('/post', methods=['GET'])
