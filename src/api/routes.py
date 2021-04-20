@@ -57,7 +57,7 @@ def create_user():
         }
 
     return jsonify(response_body), 200
-
+#login
 @api.route('/user/login', methods=['POST'])
 def login_user():
     email = request.json.get("email", None)
@@ -142,4 +142,15 @@ def delete_favorite():
     
     return jsonify(getfavs), 200
 
+
+#endpoint log out
+@api.route("/protected", methods=["PUT"])
+@jwt_required()
+def protected():
+    # Access the identity of the current user with get_jwt_identity
+    current_user_id = get_jwt_identity()
+    user = User.filter.get(current_user_id)
+    user.is_active = False
+
+    return jsonify({"id": user.id, "msg": "user is logout" }), 200
 
