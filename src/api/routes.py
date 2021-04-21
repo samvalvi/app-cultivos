@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
+from datetime import timedelta
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Post,Fav
 from api.utils import generate_sitemap, APIException
@@ -63,16 +64,28 @@ def create_user():
 def login_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
+
+    if not email:
+        return jsonify({"msg": "Por favor ingresar email"}), 400
+    elif not password:
+        return jsonify({"msg": "Por favor ingresar contrasena"}), 400
+
     # Query your database for username and password
     user = User.query.filter_by(email=email, password=password).first()
     if user is None:
         # the user was not found on the database
         return jsonify({"msg": "Bad username or password"}), 401
     
+    access_expiration = datetime.timedelta(days=1)
     # create a new token with the user id inside
-    access_token = create_access_token(identity=user.id)
+    access_token = create_access_token(identity=user.id, expires_delta=access_expiration)
+
+    user_info = {
+        "access_toke": access_token,
+        "user": user.serialize()
+    }
     
-    return jsonify({ "token": access_token})
+    return jsonify(user_info), 200
 
 # get de informacion de cultivos
 @api.route('/post', methods=['GET'])
@@ -144,14 +157,14 @@ def delete_favorite():
     return jsonify(getfavs), 200
 
 
-#endpoint log out
-@api.route("/protected", methods=["PUT"])
-@jwt_required()
-def protected():
-    # Access the identity of the current user with get_jwt_identity
-    current_user_id = get_jwt_identity()
-    user = User.filter.get(current_user_id)
-    user.is_active = False
+# #endpoint log out
+# @api.route("/protected", methods=["PUT"])
+# @jwt_required()
+# def protected():
+#     # Access the identity of the current user with get_jwt_identity
+#     current_user_id = get_jwt_identity()
+#     user = User.filter.get(current_user_id)
+#     user.is_active = False
 
-    return jsonify({"id": user.id, "msg": "user is logout" }), 200
+#     return jsonify({"id": user.id, "msg": "user is logout" }), 200
 
