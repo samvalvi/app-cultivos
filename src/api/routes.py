@@ -67,28 +67,16 @@ def create_user():
 def login_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
-
-    if not email:
-        return jsonify({"msg": "Por favor ingresar email"}), 400
-    elif not password:
-        return jsonify({"msg": "Por favor ingresar contrasena"}), 400
-
     # Query your database for username and password
     user = User.query.filter_by(email=email, password=password).first()
     if user is None:
         # the user was not found on the database
         return jsonify({"msg": "Bad username or password"}), 401
     
-    access_expiration = datetime.timedelta(days=1)
     # create a new token with the user id inside
-    access_token = create_access_token(identity=user.id, expires_delta=access_expiration)
-
-    user_info = {
-        "access_toke": access_token,
-        "user": user.serialize()
-    }
+    access_token = create_access_token(identity=user.id)
     
-    return jsonify(user_info), 200
+    return jsonify({ "token": access_token})
 
 
 # get para recuperar contraseña
@@ -187,6 +175,42 @@ def delete_favorite():
     
     
     return jsonify(getfavs), 200
+
+
+#delete user
+@api.route('/user/delete', methods=['DELETE'])
+@jwt_required()
+def delete_User():
+    current_user_id = get_jwt_identity()
+    
+   
+    body = request.get_json() # get the request body content
+    if body is None:
+         return "The request body is null", 400
+    if 'password' not in body:
+        return 'You need to specify the password',400
+    if 'email' not in body:
+        return 'You need to specify the email', 400
+  
+    user = User()
+    getUser  = user.query.filter_by(id = current_user_id , email = body['email'], password = body['password']).first()
+    
+        
+    
+  
+    #agrega user a la base de datos
+    db.session.delete(getUser)
+    #guarda los cambios
+    db.session.commit()
+
+   
+    
+
+    
+    
+    return jsonify({
+        "msg": "Usuario Eliminado"
+        }), 200
 
 
 # #endpoint log out

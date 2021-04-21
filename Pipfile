@@ -18,7 +18,11 @@ gunicorn = "*"
 cloudinary = "*"
 flask-admin = "*"
 flask-jwt-extended = "*"
+<<<<<<< HEAD
 sendgrid = "*"
+=======
+datetime = "*"
+>>>>>>> 02415d7eefc24716a13f7d9ef60596ee1b778d0f
 
 [requires]
 python_version = "3.8"
