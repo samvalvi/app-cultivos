@@ -44,8 +44,6 @@ def create_user():
     if 'firstName' not in body:
         return 'You need to specify the firstName', 400
  
-   
-        
     user = User()
         
     user.email = body['email']
@@ -63,7 +61,7 @@ def create_user():
         }
 
     return jsonify(response_body), 200
-    
+
 #login
 @api.route('/user/login', methods=['POST'])
 def login_user():
@@ -94,32 +92,33 @@ def login_user():
 
 
 # get para recuperar contraseña
-@api.route('/user/recover', methods=['GET'])
+@api.route('/user/recover', methods=['POST'])
 @jwt_required()
 def get_password():
     current_user_id = get_jwt_identity()
-    user = User.query.filter_by(id=current_user_id)
     
-    access_token = create_access_token(identity=user.id) 
+    access_token = create_access_token(identity=user.id)
 
     body = request.get_json()
     if body is None:
         return jsonify({"message":"The request body is empty"}), 400
-    elif 'email' not in body:
+    if 'email' not in body:
         return jsonify({"message": "You have to specify an email"}), 400
-    else:
-        sendgrid_recovery = sendgrid.SendGridAPIClient(api_key=os.environ.get(API_KEY))
-        from_email = Email("test@example.com")
-        to_email = To("samuelvalerin@gmail.com")
-        subject = "Sending with SendGrid is Fun"
-        content = Content("text/plain", "and easy to do anywhere, even with Python")
-        mail = Mail(from_email, to_email, subject, content)
-        response = sg.client.mail.send.post(request_body=mail.get())
-        print(response.status_code)
-        print(response.body)
-        print(response.headers)
+    
+    user = User.query.filter_by(email=body['email']).first()
 
-        return jsonify({ "token": access_token}),200
+    sendgrid_recovery = sendgrid.SendGridAPIClient(api_key=os.environ.get(API_KEY))
+    from_email = Email("test@example.com")
+    to_email = To(User['email'])
+    subject = "Sending with SendGrid is Fun"
+    content = Content(User['password'])
+    mail = Mail(from_email, to_email, subject, content)
+    response = sg.client.mail.send.post(request_body=mail.get())
+    print(response.status_code)
+    print(response.body)
+    print(response.headers)
+
+    return jsonify({ "token": access_token}),200
 
 
 # get de informacion de cultivos
