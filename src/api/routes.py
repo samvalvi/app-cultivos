@@ -93,11 +93,7 @@ def login_user():
 
 # get para recuperar contraseña
 @api.route('/user/recover', methods=['POST'])
-@jwt_required()
 def get_password():
-    current_user_id = get_jwt_identity()
-    
-    access_token = create_access_token(identity=user.id)
 
     body = request.get_json()
     if body is None:
@@ -105,20 +101,23 @@ def get_password():
     if 'email' not in body:
         return jsonify({"message": "You have to specify an email"}), 400
     
+    user = User()
     user = User.query.filter_by(email=body['email']).first()
+    print("Hello World")
+    print(user.email)
 
-    sendgrid_recovery = sendgrid.SendGridAPIClient(api_key=os.environ.get(API_KEY))
+    sg = sendgrid.SendGridAPIClient(api_key=API_KEY)
     from_email = Email("test@example.com")
-    to_email = To(User['email'])
+    to_email = To(user.email)
     subject = "Sending with SendGrid is Fun"
-    content = Content(User['password'])
+    content = Content("text/plain", user.password)
     mail = Mail(from_email, to_email, subject, content)
     response = sg.client.mail.send.post(request_body=mail.get())
     print(response.status_code)
     print(response.body)
     print(response.headers)
 
-    return jsonify({ "token": access_token}),200
+    return jsonify({"message":"mail sended to " + user.email}),200
 
 
 # get de informacion de cultivos
