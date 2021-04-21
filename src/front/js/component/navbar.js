@@ -6,7 +6,7 @@ export const Navbar = () => {
 		<nav className="navbar navbar-expand-sm navbar-dark bg-dark">
 			<Link to="/">
 				<span className="navbar-brand" href="#">
-					Nombre App
+					Cultiva
 				</span>
 			</Link>
 
