@@ -63,6 +63,7 @@ def create_user():
         }
 
     return jsonify(response_body), 200
+    
 #login
 @api.route('/user/login', methods=['POST'])
 def login_user():
