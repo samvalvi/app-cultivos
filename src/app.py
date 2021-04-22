@@ -41,14 +41,6 @@ jwt = JWTManager(app)
 # add the admin
 setup_admin(app)
 
-@jwt.expired_token_loader
-def my_expired_token_callback(expired_token):
-    token_type = expired_token['type']
-    return jsonify({
-        'msg': 'The token has expired, por favor login de nuevo'.format(token_type)
-    }), 401
-
-
 # Add all endpoints form the API with a "api" prefix
 app.register_blueprint(api, url_prefix='/api')
 

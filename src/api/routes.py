@@ -2,8 +2,8 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
-
-from datetime import datetime
+import datetime
+from datetime import timedelta
 
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Post,Fav
@@ -120,12 +120,11 @@ def login_user():
         return jsonify({"msg": "Bad username or password"}), 401
     
     # create a new token with the user id inside
-    expires_session = datetime.timedelta(days=1)
-    access_token = create_access_token(identity=user.id, expires_token=expires_session)
+    access_token = create_access_token(identity=user.id)
 
     response = {
         "access_token": access_token,
-        "user": user.seralize()
+        "user": user.serialize()
     }
     
     return jsonify(response), 200
