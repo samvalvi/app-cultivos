@@ -2,6 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
+from datetime import datetime
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Post,Fav
 from api.utils import generate_sitemap, APIException
@@ -70,9 +71,15 @@ def login_user():
         return jsonify({"msg": "Bad username or password"}), 401
     
     # create a new token with the user id inside
-    access_token = create_access_token(identity=user.id)
+    expires_session = datetime.timedelta(days=1)
+    access_token = create_access_token(identity=user.id, expires_token=expires_session)
+
+    response = {
+        "access_token": access_token,
+        "user": user.seralize()
+    }
     
-    return jsonify({ "token": access_token})
+    return jsonify(response), 200
 
 # get de informacion de cultivos
 @api.route('/post', methods=['GET'])
