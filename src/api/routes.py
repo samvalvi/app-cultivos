@@ -44,8 +44,6 @@ def create_user():
         return 'You need to specify the lastName', 400
     if 'firstName' not in body:
         return 'You need to specify the firstName', 400
- 
-   
         
     user = User()
         
@@ -86,8 +84,6 @@ def create_cultivo():
         return 'necesitas especificar preparacion_del_suelo', 400
     if 'plagas' not in body:
         return 'necesitas especificar plagas', 400
- 
-   
         
     post = Post()
     post.nombre = body['nombre']  
@@ -172,15 +168,12 @@ def list_vegetables():
 @jwt_required()
 def create_favorite():
     current_user_id = get_jwt_identity()
-    
    
     body = request.get_json() # get the request body content
     if body is None:
          return "The request body is null", 400
     if 'name' not in body:
         return 'You need to specify the favorite name',400
-  
- 
         
     favorites = Fav()
     favorites.user_id = current_user_id
@@ -201,7 +194,6 @@ def create_favorite():
 @jwt_required()
 def delete_favorite():
     current_user_id = get_jwt_identity()
-    
    
     body = request.get_json() # get the request body content
     if body is None:
@@ -211,9 +203,6 @@ def delete_favorite():
   
     favorites = Fav()
     getfavs  = favorites.query.filter_by(user_id = current_user_id , id = body['id']).first()
-    
-        
-    
   
     #agrega user a la base de datos
     db.session.delete(getfavs)
@@ -222,9 +211,6 @@ def delete_favorite():
 
     getfavs  = favorites.query.filter_by(user_id = current_user_id)
     getfavs = list(map(lambda x: x.serialize(), getfavs))
-    
-
-    
     
     return jsonify(getfavs), 200
 
@@ -235,7 +221,6 @@ def delete_favorite():
 def delete_User():
     current_user_id = get_jwt_identity()
     
-   
     body = request.get_json() # get the request body content
     if body is None:
          return "The request body is null", 400
@@ -246,33 +231,12 @@ def delete_User():
   
     user = User()
     getUser  = user.query.filter_by(id = current_user_id , email = body['email'], password = body['password']).first()
-    
-        
-    
   
     #agrega user a la base de datos
     db.session.delete(getUser)
     #guarda los cambios
     db.session.commit()
-
-   
-    
-
-    
     
     return jsonify({
         "msg": "Usuario Eliminado"
         }), 200
-
-
-# #endpoint log out
-# @api.route("/protected", methods=["PUT"])
-# @jwt_required()
-# def protected():
-#     # Access the identity of the current user with get_jwt_identity
-#     current_user_id = get_jwt_identity()
-#     user = User.filter.get(current_user_id)
-#     user.is_active = False
-
-#     return jsonify({"id": user.id, "msg": "user is logout" }), 200
-
