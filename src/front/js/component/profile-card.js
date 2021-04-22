@@ -22,7 +22,7 @@ export function Info() {
 							<p className="card-text">
 								<ul>
 									<li>email: cubilloricardo@gmail.com</li>
-									<li>github: https://github.com/ricubi199</li>
+									<li>github: ricubi199</li>
 								</ul>
 							</p>
 						</div>
@@ -36,7 +36,7 @@ export function Info() {
 							<p className="card-text">
 								<ul>
 									<li>email: kev.rdgz@gmail.com</li>
-									<li>github: https://github.com/kevrdgz</li>
+									<li>github: kevrdgz</li>
 								</ul>
 							</p>
 						</div>
@@ -50,7 +50,7 @@ export function Info() {
 							<p className="card-text">
 								<ul>
 									<li>email: elopezc0308@gmail.com</li>
-									<li>github: https://github.com/Ernesto-03</li>
+									<li>github: Ernesto-03</li>
 								</ul>
 							</p>
 						</div>
@@ -64,7 +64,7 @@ export function Info() {
 							<p className="card-text">
 								<ul>
 									<li>email: samuelvalerin@gmail.com</li>
-									<li>github: https://github.com/samvalvi</li>
+									<li>github: samvalvi</li>
 								</ul>
 							</p>
 						</div>

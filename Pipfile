@@ -21,6 +21,7 @@ flask-jwt-extended = "*"
 datetime = "*"
 sendgrid = "*"
 
+
 [requires]
 python_version = "3.8"
 

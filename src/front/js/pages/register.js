@@ -1,12 +1,40 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 
 import { Button, Container, Row, Col, Form, ButtonGroup } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams, Redirect } from "react-router-dom";
 import "../../styles/register.scss";
 
 export const Register = () => {
 	const { store, actions } = useContext(Context);
+
+	const [email, setEmail] = useState("");
+	const [password, setPassword] = useState("");
+	const [firstName, setFirstName] = useState("");
+	const [lastName, setLastName] = useState("");
+	const [auth, setAuth] = useState(false);
+
+	const handleSummit = e => {
+		e.preventDefault();
+		let response = {
+			email: email,
+			password: password,
+			lastName: lastName,
+			firstName: firstName
+		};
+
+		fetch("https://3001-jade-silverfish-j1cpbwt8.ws-us03.gitpod.io/api/user/register", {
+			method: "POST",
+			body: JSON.stringify(response),
+			headers: { "Content-Type": "application/json" }
+		})
+			.then(res => res.json())
+			.then(data => {
+				console.log(data);
+				setAuth(true);
+			})
+			.catch(error => console.log(error));
+	};
 
 	return (
 		<Container className="p-5 mt-5">
@@ -23,11 +51,16 @@ export const Register = () => {
 				</Col>
 				<Col sm={12} lg={6} className="text-left">
 					<h1>Registro</h1>
-					<Form>
+					<Form onSubmit={() => handleSummit(event)}>
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupEmail">
-									<Form.Control type="text" placeholder="primer nombre" />
+									<Form.Control
+										type="text"
+										placeholder="primer nombre"
+										onChange={event => setFirstName(event.target.value)}
+										value={firstName}
+									/>
 								</Form.Group>
 							</Col>
 						</Form.Row>
@@ -35,7 +68,12 @@ export const Register = () => {
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupEmail">
-									<Form.Control type="text" placeholder="primer apellido" />
+									<Form.Control
+										type="text"
+										placeholder="primer apellido"
+										onChange={event => setLastName(event.target.value)}
+										value={lastName}
+									/>
 								</Form.Group>
 							</Col>
 						</Form.Row>
@@ -43,7 +81,12 @@ export const Register = () => {
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupEmail">
-									<Form.Control type="email" placeholder="correo electrónico" />
+									<Form.Control
+										type="email"
+										placeholder="correo electrónico"
+										onChange={event => setEmail(event.target.value)}
+										value={email}
+									/>
 								</Form.Group>
 							</Col>
 						</Form.Row>
@@ -51,7 +94,12 @@ export const Register = () => {
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupPassword">
-									<Form.Control type="password" placeholder="contraseña" />
+									<Form.Control
+										type="password"
+										placeholder="contraseña"
+										onChange={event => setPassword(event.target.value)}
+										value={password}
+									/>
 								</Form.Group>
 							</Col>
 						</Form.Row>
@@ -67,6 +115,7 @@ export const Register = () => {
 							</Col>
 						</Form.Row>
 					</Form>
+					{auth ? <Redirect to="/feed" /> : null}
 				</Col>
 			</Row>
 		</Container>
