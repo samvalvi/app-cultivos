@@ -27,21 +27,22 @@ class Post(db.Model):
     __tablename__ = 'post'
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), nullable=False)
-    descripcion = db.Column(db.String(), nullable=False)
     epoca_siembra = db.Column(db.String(), nullable=False)
     clima = db.Column(db.String(), nullable=False)
     cosecha = db.Column(db.String(), nullable=False)
     plagas = db.Column(db.String(), nullable=False)
+    tipo_de_suelo = db.Column(db.String(), nullable=False)
+    preparacion_del_suelo = db.Column(db.String(), nullable=False)
 
     def serialize(self):
         return {
             "id": self.id,
             "nombre": self.nombre,
-            "descripcion": self.descripcion,
             "epoca_siembra": self.epoca_siembra,
             "clima": self.clima,
             "cosecha": self.cosecha,
-            "plagas": self.plagas,
+            "tipo_de_suelo": self.tipo_de_suelo,
+            "preparacion_del_suelo": self.preparacion_del_suelo
             # do not serialize the password, its a security breach
         }
 
