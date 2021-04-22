@@ -7,11 +7,14 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Post,Fav
 from api.utils import generate_sitemap, APIException
 from werkzeug.security import safe_str_cmp
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 #jwt
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 
-### Test 
+API_KEY = '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'
 
 api = Blueprint('api', __name__)
 
@@ -74,6 +77,36 @@ def login_user():
     access_token = create_access_token(identity=user.id)
     
     return jsonify({ "token": access_token})
+
+# recuperar contraseña
+@api.route('/user/recover', methods=['POST'])
+def get_password():
+
+    body = request.get_json()
+    if body is None:
+        return jsonify({"message":"The request body is empty"}), 400
+    if 'email' not in body:
+        return jsonify({"message": "You have to specify an email"}), 400
+
+    user = User()
+    user = User.query.filter_by(email=body['email']).first()
+
+    message = Mail(from_email='samuelvalerin@protonmail.com',
+                to_emails=user.email,
+                subject='Password',
+                html_content='<strong>Password: </strong>' + user.password)
+
+    try:
+        sg = SendGridAPIClient(API_KEY)
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+        return jsonify({'message':'password sended'}), 200
+    
+    except Exception as e:
+        print(e)
+
 
 # get de informacion de cultivos
 @api.route('/post', methods=['GET'])
