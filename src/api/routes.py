@@ -64,6 +64,50 @@ def create_user():
         }
 
     return jsonify(response_body), 200
+
+#post información de cultivos
+# post user
+@api.route('/user/cultivo', methods=['POST'])
+def create_cultivo():
+    body = request.get_json() # get the request body content
+    if body is None:
+         return "El body está vacio", 400
+    if 'nombre' not in body:
+        return 'necesitas especificar un nombre',400
+    if 'epoca_siembra' not in body:
+        return 'necesitas especificar epoca_siembra ', 400
+    if 'clima' not in body:
+        return 'necesitas especificar clima', 400
+    if 'cosecha' not in body:
+        return 'necesitas especificar cosecha', 400
+    if 'tipo_de_suelo' not in body:
+        return 'necesitas especificar tipo_de_suelo', 400
+    if 'preparacion_del_suelo' not in body:
+        return 'necesitas especificar preparacion_del_suelo', 400
+    if 'plagas' not in body:
+        return 'necesitas especificar plagas', 400
+ 
+   
+        
+    post = Post()
+    post.nombre = body['nombre']  
+    post.epoca_siembra = body['epoca_siembra'] 
+    post.cosecha = body['cosecha'] 
+    post.clima = body['clima'] 
+    post.tipo_de_suelo = body['tipo_de_suelo'] 
+    post.preparacion_del_suelo = body['preparacion_del_suelo'] 
+    post.plagas = body['plagas']
+   
+    #agrega user a la base de datos
+    db.session.add(post)
+    #guarda los cambios
+    db.session.commit()
+
+    response_body = {
+        "msg": "cultivo creado"
+        }
+
+    return jsonify(response_body), 200
 #login
 @api.route('/user/login', methods=['POST'])
 def login_user():
