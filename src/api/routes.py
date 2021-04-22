@@ -2,16 +2,21 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
+
 from datetime import datetime
+
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Post,Fav
 from api.utils import generate_sitemap, APIException
 from werkzeug.security import safe_str_cmp
+import os
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail
 
 #jwt
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 
-### Test 
+API_KEY = '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'
 
 api = Blueprint('api', __name__)
 
@@ -80,6 +85,36 @@ def login_user():
     }
     
     return jsonify(response), 200
+
+# recuperar contraseña
+@api.route('/user/recover', methods=['POST'])
+def get_password():
+
+    body = request.get_json()
+    if body is None:
+        return jsonify({"message":"The request body is empty"}), 400
+    if 'email' not in body:
+        return jsonify({"message": "You have to specify an email"}), 400
+
+    user = User()
+    user = User.query.filter_by(email=body['email']).first()
+
+    message = Mail(from_email='samuelvalerin@protonmail.com',
+                to_emails=user.email,
+                subject='Password',
+                html_content='<strong>Password: </strong>' + user.password)
+
+    try:
+        sg = SendGridAPIClient(API_KEY)
+        response = sg.send(message)
+        print(response.status_code)
+        print(response.body)
+        print(response.headers)
+        return jsonify({'message':'password sended'}), 200
+    
+    except Exception as e:
+        print(e)
+
 
 # get de informacion de cultivos
 @api.route('/post', methods=['GET'])
@@ -151,14 +186,50 @@ def delete_favorite():
     return jsonify(getfavs), 200
 
 
-#endpoint log out
-@api.route("/protected", methods=["PUT"])
+#delete user
+@api.route('/user/delete', methods=['DELETE'])
 @jwt_required()
-def protected():
-    # Access the identity of the current user with get_jwt_identity
+def delete_User():
     current_user_id = get_jwt_identity()
-    user = User.filter.get(current_user_id)
-    user.is_active = False
+    
+   
+    body = request.get_json() # get the request body content
+    if body is None:
+         return "The request body is null", 400
+    if 'password' not in body:
+        return 'You need to specify the password',400
+    if 'email' not in body:
+        return 'You need to specify the email', 400
+  
+    user = User()
+    getUser  = user.query.filter_by(id = current_user_id , email = body['email'], password = body['password']).first()
+    
+        
+    
+  
+    #agrega user a la base de datos
+    db.session.delete(getUser)
+    #guarda los cambios
+    db.session.commit()
 
-    return jsonify({"id": user.id, "msg": "user is logout" }), 200
+   
+    
+
+    
+    
+    return jsonify({
+        "msg": "Usuario Eliminado"
+        }), 200
+
+
+# #endpoint log out
+# @api.route("/protected", methods=["PUT"])
+# @jwt_required()
+# def protected():
+#     # Access the identity of the current user with get_jwt_identity
+#     current_user_id = get_jwt_identity()
+#     user = User.filter.get(current_user_id)
+#     user.is_active = False
+
+#     return jsonify({"id": user.id, "msg": "user is logout" }), 200
 
