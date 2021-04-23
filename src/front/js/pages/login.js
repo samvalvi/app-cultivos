@@ -7,6 +7,7 @@ import "../../styles/demo.scss";
 import { Context } from "../store/appContext";
 
 export const Login = () => {
+	const { store, actions } = useContext(Context);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [auth, setAuth] = useState(false);
@@ -18,7 +19,7 @@ export const Login = () => {
 			password: password
 		};
 
-		fetch("https://3001-apricot-pinniped-awkeq3pq.ws-us03.gitpod.io/api/user/login", {
+		fetch("https://3001-jade-silverfish-j1cpbwt8.ws-us03.gitpod.io/api/user/login", {
 			method: "POST",
 			body: JSON.stringify(body),
 			headers: {
@@ -29,7 +30,8 @@ export const Login = () => {
 			.then(data => {
 				console.log(data);
 				sessionStorage.setItem("my_token", data.token);
-
+				actions.setUserData(data);
+				actions.setUserStatus();
 				setAuth(true);
 			})
 			.catch(err => console.log(err));
