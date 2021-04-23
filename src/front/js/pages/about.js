@@ -3,7 +3,7 @@ import { Info } from "../component/profile-card";
 
 export function About() {
 	return (
-		<div className="container">
+		<div className="container-fluid">
 			<Info />
 		</div>
 	);

@@ -29,6 +29,7 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+    
 
 # post user
 @api.route('/user/register', methods=['POST'])
@@ -62,6 +63,7 @@ def create_user():
         }
 
     return jsonify(response_body), 200
+
 
 #post información de cultivos
 
@@ -125,6 +127,7 @@ def login_user():
     
     return jsonify(response), 200
 
+
 # recuperar contraseña
 @api.route('/user/recover', methods=['POST'])
 def get_password():
@@ -140,8 +143,8 @@ def get_password():
 
     message = Mail(from_email='samuelvalerin@protonmail.com',
                 to_emails=user.email,
-                subject='Password',
-                html_content='<strong>Password: </strong>' + user.password)
+                subject='Recuperación de contraseña',
+                html_content='<strong>Su contraseña: </strong>' + user.password)
 
     try:
         sg = SendGridAPIClient(API_KEY)
@@ -168,6 +171,7 @@ def list_vegetables():
 @jwt_required()
 def create_favorite():
     current_user_id = get_jwt_identity()
+    
    
     body = request.get_json() # get the request body content
     if body is None:
@@ -188,6 +192,7 @@ def create_favorite():
     getfavs = list(map(lambda x: x.serialize(), getfavs))
     
     return jsonify(getfavs), 200
+
 
 #delete favorites 
 @api.route('/favorites', methods=['DELETE'])

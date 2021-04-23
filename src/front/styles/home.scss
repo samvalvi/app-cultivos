@@ -1,7 +1,15 @@
 #home {
-    background-image: url("../img/home-background.jpg");
+    background-image: url("../img/jardin.png");
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    min-width:100%;
+    min-height:100%;
+    overflow: auto;
+}
+
+#home-text {
+    font-size: 32px;
+    text-align: justify;
 }
