@@ -13,7 +13,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			userStatus: false,
+			userData: {}
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -41,6 +43,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				//reset the global store
 				setStore({ demo: demo });
+			},
+			setUserStatus: () => {
+				setStore({ userStatus: true });
+			},
+			setUserData: data => {
+				setStore({ userData: data });
 			}
 		}
 	};

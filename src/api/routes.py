@@ -64,7 +64,7 @@ def create_user():
     return jsonify(response_body), 200
 
 #post información de cultivos
-# post user
+
 @api.route('/user/cultivo', methods=['POST'])
 def create_cultivo():
     body = request.get_json() # get the request body content
