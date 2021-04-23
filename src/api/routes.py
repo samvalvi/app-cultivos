@@ -141,7 +141,7 @@ def get_password():
     user = User()
     user = User.query.filter_by(email=body['email']).first()
 
-    message = Mail(from_email='cultivacostarica@gmail.com',
+    message = Mail(from_email='samuelvalerin@protonmail.com',
                 to_emails=user.email,
                 subject='Recuperación de contraseña',
                 html_content='<strong>Su contraseña: </strong>' + user.password)
