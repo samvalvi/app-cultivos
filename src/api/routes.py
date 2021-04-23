@@ -141,10 +141,10 @@ def get_password():
     user = User()
     user = User.query.filter_by(email=body['email']).first()
 
-    message = Mail(from_email='samuelvalerin@protonmail.com',
+    message = Mail(from_email='cultivacostarica@gmail.com',
                 to_emails=user.email,
-                subject='Password',
-                html_content='<strong>Password: </strong>' + user.password)
+                subject='Recuperación de contraseña',
+                html_content='<strong>Su contraseña: </strong>' + user.password)
 
     try:
         sg = SendGridAPIClient(API_KEY)

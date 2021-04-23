@@ -1,7 +1,12 @@
 #home {
-    background-image: url("../img/home-background.jpg");
+    background-image: url("../img/jardin.png");
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+#home-text {
+    font-size: 30px;
+    color: #01090D;
 }

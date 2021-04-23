@@ -9,8 +9,9 @@ export const Home = () => {
 		<div className="container-fluid text-white text-justify p-5" id="home">
 			<div className="row">
 				<div className="col-sm-6">
-					<h3>Your Best Value Proposition</h3>
-					<p>
+					<h1 className="p-2 display-4">¡Bienvenido a Cultiva!</h1>
+
+					<p className="p-2" id="home-text">
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
 						labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 						eiusmod tempor incididunt ut labore et dolore magna aliqua.

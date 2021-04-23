@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Form, Image, Container, Row, Col, Button } from "react-bootstrap";
 import { Link, useParams, Redirect } from "react-router-dom";
 import fondo from "../../img/login-image.jpg";
-import "../../styles/demo.scss";
+import "../../styles/login.scss";
 
 import { Context } from "../store/appContext";
 
@@ -70,10 +70,10 @@ export const Login = () => {
 						</Form.Row>
 						<Form.Row>
 							<Col lg={8}>
-								<Button variant="primary" type="submit">
+								<Button variant="dark" type="submit">
 									Iniciar
 								</Button>
-								<Link className="w-25 btn btn-light" role="button" to="/" variant="light">
+								<Link className="ml-1 w-25 btn btn-light" role="button" to="/" variant="light">
 									Cancelar
 								</Link>
 							</Col>
