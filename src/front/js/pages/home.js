@@ -6,12 +6,11 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	return (
-		<div className="container-fluid text-white text-justify p-5" id="home">
+		<div className="container-fluid text-white" id="home">
 			<div className="row">
-				<div className="col-sm-6">
-					<h1 className="p-2 display-4">¡Bienvenido a Cultiva!</h1>
-
-					<p className="p-2" id="home-text">
+				<div className="m-5 col-sm-8 col-md-6 col-lg-6">
+					<h1 className="display-4">¡Bienvenido a Cultiva!</h1>
+					<p id="home-text">
 						Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
 						labore et dolore magna aliqua. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
 						eiusmod tempor incididunt ut labore et dolore magna aliqua.

@@ -4,9 +4,12 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    min-width:100%;
+    min-height:100%;
+    overflow: auto;
 }
 
 #home-text {
-    font-size: 30px;
-    color: #01090D;
+    font-size: 32px;
+    text-align: justify;
 }
