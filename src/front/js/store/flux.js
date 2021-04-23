@@ -15,7 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			],
 			userStatus: false,
-			userData: {}
+			userData: {},
+			cultivos: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -49,6 +50,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			setUserData: data => {
 				setStore({ userData: data });
+			},
+			fetchCultivos() {
+				fetch("https://3001-beige-cod-ips36apn.ws-us03.gitpod.io/api/post")
+					.then(response => response.json())
+					.then(result => {
+						setStore({ cultivos: result });
+						console.log(result);
+					})
+					.catch(error => console.log("error", error));
 			}
 		}
 	};
