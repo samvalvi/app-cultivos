@@ -16,7 +16,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 			userStatus: false,
 			userData: {},
-			cultivos: []
+			cultivos: [],
+			token: ""
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
@@ -45,11 +46,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 				//reset the global store
 				setStore({ demo: demo });
 			},
-			setUserStatus: () => {
-				setStore({ userStatus: true });
+			setUserStatus: condicion => {
+				setStore({ userStatus: condicion });
 			},
 			setUserData: data => {
 				setStore({ userData: data });
+			},
+			setToken: data => {
+				setStore({ token: data });
 			},
 			fetchCultivos() {
 				fetch("https://3001-beige-cod-ips36apn.ws-us03.gitpod.io/api/post")

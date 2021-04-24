@@ -23,7 +23,7 @@ export const Register = () => {
 			firstName: firstName
 		};
 
-		fetch("https://3001-crimson-pike-1ahdmr6w.ws-us03.gitpod.io/api/user/register", {
+		fetch("https://3001-harlequin-caterpillar-nd18p21b.ws-us03.gitpod.io/api/user/register", {
 			method: "POST",
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
@@ -115,7 +115,7 @@ export const Register = () => {
 							</Col>
 						</Form.Row>
 					</Form>
-					{auth ? <Redirect to="/feed" /> : null}
+					{auth ? <Redirect to="/login" /> : null}
 				</Col>
 			</Row>
 		</Container>
