@@ -1,9 +1,9 @@
 import React from "react";
 import { Container, Row, Col, Card, CardColumns } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Fruta from "../../img/fruta-prueba.jpg";
-
-export function Product() {
+import PropTypes from "prop-types";
+export function Product(props) {
 	return (
 		<Container className="mt-5">
 			<Row>
@@ -11,7 +11,7 @@ export function Product() {
 					<Card className="shadow">
 						<Card.Img variant="top" src={Fruta} />
 						<Card.Body>
-							<Card.Title>Nombre</Card.Title>
+							<Card.Title>{props.name}</Card.Title>
 						</Card.Body>
 					</Card>
 				</Col>
@@ -21,19 +21,16 @@ export function Product() {
 							<Card.Title>
 								<Row>
 									<Col sm={6} lg={6}>
-										<h5>Categoría</h5>
+										<h5>{props.name}</h5>
 									</Col>
 									<Col sm={6} lg={6}>
 										<i className="far fa-heart float-right" />
 									</Col>
 								</Row>
 							</Card.Title>
-							<Card.Text>
-								Some quick example text to build on the card title and make up the bulk of the cards
-								content.
-							</Card.Text>
+							<Card.Text>{props.description}</Card.Text>
 							<Card.Text className="float-right">
-								<Link to="/details">
+								<Link to={"/details/" + props.pos}>
 									<small>ver más</small>
 								</Link>
 							</Card.Text>
@@ -44,3 +41,10 @@ export function Product() {
 		</Container>
 	);
 }
+
+Product.propTypes = {
+	name: PropTypes.string,
+	type: PropTypes.string,
+	description: PropTypes.string,
+	pos: PropTypes.number
+};
