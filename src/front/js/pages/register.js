@@ -23,7 +23,7 @@ export const Register = () => {
 			firstName: firstName
 		};
 
-		fetch("https://3001-crimson-pike-1ahdmr6w.ws-us03.gitpod.io/api/user/register", {
+		fetch("https://3001-tomato-crocodile-0nkbbvfa.ws-us03.gitpod.io/api/user/register", {
 			method: "POST",
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
@@ -39,12 +39,8 @@ export const Register = () => {
 	return (
 		<Container className="p-5 mt-5">
 			<Row>
-				<Col lg={6} className="displayNone">
-					<div className="bg-image">
-						<div className="bg-blur" />
-					</div>
-
-					<div className="bg-text">
+				<Col lg={6}>
+					<div>
 						<h1>¡Bienvenido!</h1>
 						<h5>Cree su cuenta</h5>
 					</div>
@@ -60,6 +56,7 @@ export const Register = () => {
 										placeholder="primer nombre"
 										onChange={event => setFirstName(event.target.value)}
 										value={firstName}
+										required
 									/>
 								</Form.Group>
 							</Col>
@@ -73,6 +70,7 @@ export const Register = () => {
 										placeholder="primer apellido"
 										onChange={event => setLastName(event.target.value)}
 										value={lastName}
+										required
 									/>
 								</Form.Group>
 							</Col>
@@ -86,6 +84,7 @@ export const Register = () => {
 										placeholder="correo electrónico"
 										onChange={event => setEmail(event.target.value)}
 										value={email}
+										required
 									/>
 								</Form.Group>
 							</Col>
@@ -99,6 +98,7 @@ export const Register = () => {
 										placeholder="contraseña"
 										onChange={event => setPassword(event.target.value)}
 										value={password}
+										required
 									/>
 								</Form.Group>
 							</Col>
