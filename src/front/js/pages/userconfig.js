@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
-
+import User from "../../img/User.png";
 import { Button, Container, Row, Col, Form, ButtonGroup } from "react-bootstrap";
 import { Link, Redirect } from "react-router-dom";
 import "../../styles/userconfig.scss";
@@ -36,19 +36,16 @@ export const Userconfig = () => {
 	return (
 		<Container className="p-5 mt-5">
 			<Row>
-				<Col lg={6} className="displayNone">
-					<div className="bg-image">
-						<div className="bg-blur" />
-					</div>
-
-					<div className="bg-text">
-						<h1>Titulo</h1>
-						<h5>Borrar su cuenta</h5>
+				<Col lg={6}>
+					<div>
+						<img src={User} className="w-50" alt="perfil" />
 					</div>
 				</Col>
 				<Col sm={12} lg={6} className="text-left">
+ kevin_branch
 					<h1>Eliminar Usuario</h1>
 					<Form onSubmit={() => handleSubmit(event)}>
+
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupEmail">
