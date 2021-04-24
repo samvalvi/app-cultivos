@@ -13,7 +13,7 @@ export function Recover() {
 			email: emailRecover
 		};
 
-		fetch("https://3001-crimson-pike-1ahdmr6w.ws-us03.gitpod.io/api/user/recover", {
+		fetch("https://3001-tomato-crocodile-0nkbbvfa.ws-us03.gitpod.io/api/user/register", {
 			method: "POST",
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
