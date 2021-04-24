@@ -23,7 +23,9 @@ export const Register = () => {
 			firstName: firstName
 		};
 
+
 		fetch("https://3001-tomato-crocodile-0nkbbvfa.ws-us03.gitpod.io/api/user/register", {
+
 			method: "POST",
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
@@ -115,7 +117,7 @@ export const Register = () => {
 							</Col>
 						</Form.Row>
 					</Form>
-					{auth ? <Redirect to="/feed" /> : null}
+					{auth ? <Redirect to="/login" /> : null}
 				</Col>
 			</Row>
 		</Container>

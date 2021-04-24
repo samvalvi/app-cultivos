@@ -19,7 +19,9 @@ export const Login = () => {
 			password: password
 		};
 
+
 		fetch("https://3001-tomato-crocodile-0nkbbvfa.ws-us03.gitpod.io/api/user/login", {
+
 			method: "POST",
 			body: JSON.stringify(body),
 			headers: {
@@ -29,9 +31,9 @@ export const Login = () => {
 			.then(res => res.json())
 			.then(data => {
 				console.log(data);
-				sessionStorage.setItem("my_token", data.token);
+				actions.setToken(data.access_token);
 				actions.setUserData(data);
-				actions.setUserStatus();
+				actions.setUserStatus(true);
 				setAuth(true);
 			})
 			.catch(err => console.log(err));
