@@ -27,11 +27,11 @@ export function Recover() {
 	};
 
 	return (
-		<Container className="p-3 m-0">
+		<Container className="p-5 mt-5">
 			<Row>
 				<Col sm={10} lg={8}>
-					<h2>¿Olvidó su contraseña?</h2>
-					<h3>Ingrese su correo electrónico</h3>
+					<h1>¿Olvidó su contraseña?</h1>
+					<h5>Ingrese su correo electrónico</h5>
 
 					<Form onSubmit={() => handleSummit(event)}>
 						<Form.Group controlId="formBasicEmail">
@@ -39,13 +39,13 @@ export function Recover() {
 								type="email"
 								placeholder="Correo electrónico"
 								onChange={event => setEmailRecover(event.target.value)}
-                                value={emailRecover}
-                                required
+								value={emailRecover}
+								required
 							/>
 						</Form.Group>
 
 						<Button variant="dark" type="submit">
-							Enviar contraseña
+							Enviar correo
 						</Button>
 
 						<Link to="/" role="button" className="w-25 btn btn-light m-3" variant="light" type="submit">

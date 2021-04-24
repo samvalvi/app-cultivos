@@ -15,7 +15,7 @@ export const Footer = () => {
 				</div>
 				<div className="col-sm-4 text-center align-self-center">
 					<h5>
-						<Link to="/about" id="link-nosotros">
+						<Link to="/about" className="text-white">
 							Sobre nosotros
 						</Link>
 					</h5>

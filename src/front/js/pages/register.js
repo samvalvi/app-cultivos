@@ -39,12 +39,8 @@ export const Register = () => {
 	return (
 		<Container className="p-5 mt-5">
 			<Row>
-				<Col lg={6} className="displayNone">
-					<div className="bg-image">
-						<div className="bg-blur" />
-					</div>
-
-					<div className="bg-text">
+				<Col lg={6}>
+					<div>
 						<h1>¡Bienvenido!</h1>
 						<h5>Cree su cuenta</h5>
 					</div>
@@ -59,8 +55,8 @@ export const Register = () => {
 										type="text"
 										placeholder="primer nombre"
 										onChange={event => setFirstName(event.target.value)}
-                                        value={firstName}
-                                        required
+										value={firstName}
+										required
 									/>
 								</Form.Group>
 							</Col>
@@ -73,8 +69,8 @@ export const Register = () => {
 										type="text"
 										placeholder="primer apellido"
 										onChange={event => setLastName(event.target.value)}
-                                        value={lastName}
-                                        required
+										value={lastName}
+										required
 									/>
 								</Form.Group>
 							</Col>
@@ -87,8 +83,8 @@ export const Register = () => {
 										type="email"
 										placeholder="correo electrónico"
 										onChange={event => setEmail(event.target.value)}
-                                        value={email}
-                                        required
+										value={email}
+										required
 									/>
 								</Form.Group>
 							</Col>
@@ -101,8 +97,8 @@ export const Register = () => {
 										type="password"
 										placeholder="contraseña"
 										onChange={event => setPassword(event.target.value)}
-                                        value={password}
-                                        required
+										value={password}
+										required
 									/>
 								</Form.Group>
 							</Col>

@@ -40,11 +40,8 @@ export const Login = () => {
 	return (
 		<Container className="p-5 mt-5">
 			<Row className="align-items-center">
-				<Col lg={4} className="displayNone">
-					<img src={fondo} className="img-fluid" alt="plantas" />
-				</Col>
 				<Col sm={12} md={8} lg={8}>
-					<h2>Inicio de sesión</h2>
+					<h1>Inicio de sesión</h1>
 					<Form onSubmit={() => handleSubmit(event)}>
 						<Form.Row>
 							<Col lg={12}>
@@ -53,8 +50,8 @@ export const Login = () => {
 										type="email"
 										placeholder="Correo electrónico"
 										onChange={event => setEmail(event.target.value)}
-                                        value={email}
-                                        required
+										value={email}
+										required
 									/>
 								</Form.Group>
 							</Col>
@@ -66,8 +63,8 @@ export const Login = () => {
 										type="password"
 										placeholder="Contraseña"
 										onChange={event => setPassword(event.target.value)}
-                                        value={password}
-                                        required
+										value={password}
+										required
 									/>
 								</Form.Group>
 							</Col>
