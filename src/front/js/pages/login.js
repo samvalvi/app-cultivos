@@ -53,7 +53,8 @@ export const Login = () => {
 										type="email"
 										placeholder="Correo electrónico"
 										onChange={event => setEmail(event.target.value)}
-										value={email}
+                                        value={email}
+                                        required
 									/>
 								</Form.Group>
 							</Col>
@@ -65,7 +66,8 @@ export const Login = () => {
 										type="password"
 										placeholder="Contraseña"
 										onChange={event => setPassword(event.target.value)}
-										value={password}
+                                        value={password}
+                                        required
 									/>
 								</Form.Group>
 							</Col>

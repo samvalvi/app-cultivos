@@ -39,7 +39,8 @@ export function Recover() {
 								type="email"
 								placeholder="Correo electrónico"
 								onChange={event => setEmailRecover(event.target.value)}
-								value={emailRecover}
+                                value={emailRecover}
+                                required
 							/>
 						</Form.Group>
 
