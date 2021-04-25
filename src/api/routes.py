@@ -34,98 +34,134 @@ def handle_hello():
 # post user
 @api.route('/user/register', methods=['POST'])
 def create_user():
-    body = request.get_json() # get the request body content
-    if body is None:
-         return "The request body is null", 400
-    if 'password' not in body:
-        return 'You need to specify the password',400
-    if 'email' not in body:
-        return 'You need to specify the email', 400
-    if 'lastName' not in body:
-        return 'You need to specify the lastName', 400
-    if 'firstName' not in body:
-        return 'You need to specify the firstName', 400
+    
+    try:
+        body = request.get_json() # get the request body content
+
+        if body is None:
+            return "El body está vacío", 400
+        if 'password' not in body:
+            return 'Necesita especificar una contraseña',400
+        if 'email' not in body:
+            return 'Necesita especificar un email', 400
+        if 'lastName' not in body:
+            return 'Necesita especificar un apellido', 400
+        if 'firstName' not in body:
+            return 'Necesita especificar un nombre', 400
         
-    user = User()
-        
-    user.email = body['email']
-    user.password = body['password']
-    user.lastName = body['lastName']
-    user.firstName = body['firstName']
-    user.is_active =True
-    #agrega user a la base de datos
-    db.session.add(user)
-    #guarda los cambios
-    db.session.commit()
+        body_email = body['email']
+        user = User.query.filter_by(email == body_email).first()
 
-    response_body = {
-        "msg": "Usuario Creado"
-        }
+        if user:
+             jsonify({'msg':'El usuario ya existe','status':'failed'}), 400
 
-    return jsonify(response_body), 200
+        user = User()
+        user.email = body['email']
+        user.password = body['password']
+        user.lastName = body['lastName']
+        user.firstName = body['firstName']
+        user.is_active =True
+        #agrega user a la base de datos
+        db.session.add(user)
+        #guarda los cambios
+        db.session.commit()
 
+        response_body = {
+            "msg": "Usuario Creado",
+            "status":"succesful"
+            }
+
+        return jsonify(response_body), 200
+
+    except:
+        return jsonify({"msg":"El usuario no pudo ser creado", "status":"failed"}), 400
 
 #post información de cultivos
 
 @api.route('/user/cultivo', methods=['POST'])
 def create_cultivo():
-    body = request.get_json() # get the request body content
-    if body is None:
-         return "El body está vacio", 400
-    if 'nombre' not in body:
-        return 'necesitas especificar un nombre',400
-    if 'epoca_siembra' not in body:
-        return 'necesitas especificar epoca_siembra ', 400
-    if 'clima' not in body:
-        return 'necesitas especificar clima', 400
-    if 'cosecha' not in body:
-        return 'necesitas especificar cosecha', 400
-    if 'tipo_de_suelo' not in body:
-        return 'necesitas especificar tipo_de_suelo', 400
-    if 'preparacion_del_suelo' not in body:
-        return 'necesitas especificar preparacion_del_suelo', 400
-    if 'plagas' not in body:
-        return 'necesitas especificar plagas', 400
+    try:
+        body = request.get_json() # get the request body content
+        if body is None:
+             return "El body está vacio", 400
+        if 'nombre' not in body:
+            return 'necesitas especificar un nombre',400
+        if 'epoca_siembra' not in body:
+            return 'necesitas especificar epoca_siembra ', 400
+        if 'clima' not in body:
+            return 'necesitas especificar clima', 400
+        if 'cosecha' not in body:
+            return 'necesitas especificar cosecha', 400
+        if 'tipo_de_suelo' not in body:
+            return 'necesitas especificar tipo_de_suelo', 400
+        if 'preparacion_del_suelo' not in body:
+            return 'necesitas especificar preparacion_del_suelo', 400
+        if 'plagas' not in body:
+            return 'necesitas especificar plagas', 40
+
+        body_nombre = body['nombre']
+        cultivo = Post.query.filter_by(name == body_nombre).first()
+
+        if cultivo:
+            return jsonify({'msg':'El cultivo ya existe', 'status':'failed'}), 400
         
-    post = Post()
-    post.nombre = body['nombre']  
-    post.epoca_siembra = body['epoca_siembra'] 
-    post.cosecha = body['cosecha'] 
-    post.clima = body['clima'] 
-    post.tipo_de_suelo = body['tipo_de_suelo'] 
-    post.preparacion_del_suelo = body['preparacion_del_suelo'] 
-    post.plagas = body['plagas']
+        post = Post()
+        post.nombre = body['nombre']  
+        post.epoca_siembra = body['epoca_siembra'] 
+        post.cosecha = body['cosecha'] 
+        post.clima = body['clima'] 
+        post.tipo_de_suelo = body['tipo_de_suelo'] 
+        post.preparacion_del_suelo = body['preparacion_del_suelo'] 
+        post.plagas = body['plagas']
    
-    #agrega user a la base de datos
-    db.session.add(post)
-    #guarda los cambios
-    db.session.commit()
+        #agrega user a la base de datos
+        db.session.add(post)
+        #guarda los cambios
+        db.session.commit()
 
-    response_body = {
-        "msg": "cultivo creado"
-        }
+        response_body = {
+            "msg": "Cultivo creado",
+            "status":"succesful"
+            }
 
-    return jsonify(response_body), 200
+        return jsonify(response_body), 200
+    except:
+        return jsonify({"msg":"El cultivo no fue creado", "status":"failed"}), 400
+
 #login
 @api.route('/user/login', methods=['POST'])
 def login_user():
-    email = request.json.get("email", None)
-    password = request.json.get("password", None)
-    # Query your database for username and password
-    user = User.query.filter_by(email=email, password=password).first()
-    if user is None:
-        # the user was not found on the database
-        return jsonify({"msg": "Bad username or password"}), 401
-    
-    # create a new token with the user id inside
-    access_token = create_access_token(identity=user.id)
+    try:
+        try:
+            email = request.json.get("email", None)
+            password = request.json.get("password", None)
+            # Query your database for username and password
+            user = User.query.filter_by(email=email, password=password).first()
+            if user is None:
+                # the user was not found on the database
+                return jsonify({"msg": "Email o contraseña incorrecta"}), 401
+            if email is None:
+                return jsonify({'msg':'Debe ingresar su email'}), 400
+            if password is None:
+                return jsonify({'msg':'Debe ingresar su contraseña'}), 400
 
-    response = {
-        "access_token": access_token,
-        "user": user.serialize()
-    }
+            
     
-    return jsonify(response), 200
+            # create a new token with the user id inside
+            access_token = create_access_token(identity=user.id)
+
+            response = {
+                "access_token": access_token,
+                "user": user.serialize(),
+                "msg":"Sesión iniciada",
+                "status":"succesful"
+            }
+    
+        return jsonify(response), 200
+    
+    except:
+        return jsonify({'msg':'No fue posible iniciar sesión'}), 400
+
 
 
 # recuperar contraseña
