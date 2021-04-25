@@ -23,9 +23,7 @@ export const Register = () => {
 			firstName: firstName
 		};
 
-
-		fetch("https://3001-tomato-crocodile-0nkbbvfa.ws-us03.gitpod.io/api/user/register", {
-
+		fetch("https://3001-yellow-bug-ezbxpbrs.ws-us03.gitpod.io/api/user/register", {
 			method: "POST",
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
@@ -34,6 +32,7 @@ export const Register = () => {
 			.then(data => {
 				console.log(data);
 				setAuth(true);
+				alert("Registro Completado");
 			})
 			.catch(error => console.log(error));
 	};

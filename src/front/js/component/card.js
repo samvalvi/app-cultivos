@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Container, Row, Col, Card, CardColumns } from "react-bootstrap";
 import { Link, useParams } from "react-router-dom";
+import { Context } from "../store/appContext";
 import Fruta from "../../img/fruta-prueba.jpg";
 import PropTypes from "prop-types";
 export function Product(props) {
+	const { store, actions } = useContext(Context);
 	return (
 		<Container className="mt-5">
 			<Row>
@@ -24,7 +26,10 @@ export function Product(props) {
 										<h5>{props.name}</h5>
 									</Col>
 									<Col sm={6} lg={6}>
-										<i className="far fa-heart float-right" />
+										<i
+											className="far fa-heart float-right"
+											onClick={() => actions.favFunction(props.name)}
+										/>
 									</Col>
 								</Row>
 							</Card.Title>
