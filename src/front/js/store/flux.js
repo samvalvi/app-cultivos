@@ -57,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ token: data });
 			},
 			fetchCultivos() {
-				fetch("https://3001-yellow-bug-ezbxpbrs.ws-us03.gitpod.io/api/post/")
+				fetch("https://3001-blue-stork-ejly8s52.ws-us03.gitpod.io/api/post")
 					.then(response => response.json())
 					.then(result => {
 						setStore({ cultivos: result });
@@ -70,7 +70,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const actions = getActions();
 				let token = store.token;
 
-				fetch("https://3001-yellow-bug-ezbxpbrs.ws-us03.gitpod.io/api/favorites", {
+				fetch("https://3001-blue-stork-ejly8s52.ws-us03.gitpod.io/api/favorites", {
 					method: "POST",
 					headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
 					body: JSON.stringify({ name: name })

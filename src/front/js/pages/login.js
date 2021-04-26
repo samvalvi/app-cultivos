@@ -11,6 +11,7 @@ export const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [auth, setAuth] = useState(false);
+	const [msg, setMsg] = useState("");
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -28,12 +29,17 @@ export const Login = () => {
 		})
 			.then(res => res.json())
 			.then(data => {
-				console.log(data);
-				actions.setToken(data.access_token);
-				actions.setUserData(data);
-				actions.setUserStatus(true);
-				setAuth(true);
-				console.log(store.token);
+				if (data.status === "succesful") {
+					console.log(data);
+					actions.setToken(data.access_token);
+					actions.setUserData(data);
+					actions.setUserStatus(true);
+					setAuth(true);
+					setMsg("Sesión iniciada");
+					console.log(store.token);
+				} else {
+					setMsg(data.msg);
+				}
 			})
 			.catch(err => console.log(err));
 	};
@@ -43,6 +49,11 @@ export const Login = () => {
 			<Row className="align-items-center">
 				<Col sm={12} md={8} lg={8}>
 					<h1>Inicio de sesión</h1>
+					{msg ? (
+						<div className="alert alert-danger" role="alert">
+							{msg}
+						</div>
+					) : null}
 					<Form onSubmit={() => handleSubmit(event)}>
 						<Form.Row>
 							<Col lg={12}>

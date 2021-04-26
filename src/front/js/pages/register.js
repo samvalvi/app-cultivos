@@ -12,7 +12,6 @@ export const Register = () => {
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [auth, setAuth] = useState(false);
-	const [error, setError] = useState(false);
 	const [msg, setMsg] = useState("");
 
 	const handleSummit = e => {
@@ -29,22 +28,24 @@ export const Register = () => {
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
 		})
-			.then(res => {
-				res.json();
+			.then(
+				res => res.json()
 
-				if (res.status == 400) {
-					setMsg(res.json().msg);
-					throw res.json().msg;
-					setError(true);
-				}
-				setError(false);
-				setMsg("");
-				console.log(res);
-			})
+				// if (res.status == 400) {
+				// 	setMsg(res.json().msg);
+				// 	throw res.json().msg;
+				// }
+				// setMsg("");
+				// console.log(res);
+			)
 			.then(data => {
-				console.log(data);
-				setAuth(true);
-				setMsg("Usuario registrado");
+				if (data.status === "succesful") {
+					console.log(data);
+					setAuth(true);
+					setMsg("Usuario registrado");
+				} else {
+					setMsg(data.msg);
+				}
 			})
 			.catch(error => console.log(error));
 	};
@@ -52,16 +53,6 @@ export const Register = () => {
 	return (
 		<Container className="p-5 mt-5">
 			<Row>
-				{error ? (
-					<div className="alert alert-danger" role="alert">
-						{error}
-					</div>
-				) : null}
-				{msg ? (
-					<div className="alert alert-succes" role="alert">
-						{msg}
-					</div>
-				) : null}
 				<Col lg={6}>
 					<div>
 						<h1>¡Bienvenido!</h1>
@@ -70,6 +61,11 @@ export const Register = () => {
 				</Col>
 				<Col sm={12} lg={6} className="text-left">
 					<h1>Registro</h1>
+					{msg ? (
+						<div className="alert alert-danger" role="alert">
+							{msg}
+						</div>
+					) : null}
 					<Form onSubmit={() => handleSummit(event)}>
 						<Form.Row>
 							<Col lg={12}>

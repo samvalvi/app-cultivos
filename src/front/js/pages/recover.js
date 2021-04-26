@@ -6,6 +6,7 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 export function Recover() {
 	const [emailRecover, setEmailRecover] = useState("");
 	const [auth, setAuth] = useState(false);
+	const [msg, setMsg] = useState("");
 
 	const handleSummit = e => {
 		e.preventDefault();
@@ -20,8 +21,13 @@ export function Recover() {
 		})
 			.then(res => res.json())
 			.then(data => {
-				console.log(data);
-				setAuth(true);
+				if (data.status === "succesful") {
+					console.log(data);
+					setAuth(true);
+					setMsg("Correo enviado");
+				} else {
+					setMsg(data.msg);
+				}
 			})
 			.catch(error => console.log(error));
 	};

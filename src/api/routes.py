@@ -8,7 +8,7 @@ from datetime import timedelta
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, Post,Fav
 from api.utils import generate_sitemap, APIException
-from werkzeug.security import safe_str_cmp
+from werkzeug.security import safe_str_cmp, generate_password_hash, check_password_hash
 import os
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
@@ -53,9 +53,11 @@ def create_user():
     if user:
         return jsonify({'msg':'El usuario ya existe','status':'failed'}), 200
 
+    encriptar_clave = generate_password_hash(body['password'])
+
     user = User()
     user.email = body['email']
-    user.password = body['password']
+    user.password = encriptar_clave
     user.lastName = body['lastName']
     user.firstName = body['firstName']
     user.is_active =True
@@ -95,6 +97,8 @@ def create_cultivo():
         return jsonify({'msg':'Necesita especificar preparacion_del_suelo', 'status':'failed'}), 400
     if 'plagas' not in body:
         return jsonify({'msg':'Necesita especificar plagas', 'status':'failed'}), 400
+    if 'descripcion' not in body:
+        return jsonify({'msg':'Necesita especificar descripción', 'status':'failed'}), 400
 
     body_nombre = body['nombre']
     cultivo = Post.query.filter_by(name= body_nombre).first()
@@ -130,16 +134,19 @@ def login_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
-    user = User.query.filter_by(email=email, password=password).first()
+    if email is None:
+        return jsonify({'msg':'Debe ingresar un email', 'status':'failed'}), 400
+    if password is None:
+        return jsonify({'msg':'Debe igresar una contraseña', 'status':'failed'}), 401
+
+    user = User.query.filter_by(email=email).first()
 
     if user is None:
         return jsonify({'msg': 'El usuario no está registrado', 'status':'failed'}), 401
-    if email is None:
-        return jsonify({'msg':'Debe ingresar un email', 'status':'failed'}), 400
-    if password is not user.password:
-        return jsonify({'msg':'Contraseña incorrecta', 'status':'failed'}), 401
-    if email is not user.email:
+    if user.email is not email:
         return jsonify({'msg':'Email incorrecto', 'status':'failed'}), 401
+    if not check_password_hash(user.password, password):
+        return jsonify({'msg':'Contraseña incorrecta', 'status':'failed'}), 401
 
     # create a new token with the user id inside
     access_token = create_access_token(identity=user.id)
@@ -210,7 +217,7 @@ def update_password():
 
     response_body = {
         "msg":"Contraseña actualizada",
-        "status":"successful"
+        "status":"sucessful"
     }
     
     return jsonify(response_body), 200
@@ -234,21 +241,26 @@ def create_favorite():
          return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
     if 'name' not in body:
         return jsonify({'msg':'Debe especificar el nombre de un favorito', 'status':'failed'}),400
-        
-    favorites = Fav()
-    favorites.user_id = current_user_id
-    favorites.name = body['name']
+
+    validate = Fav.query.filter_by(name = body['name']).first()
+    if validate is None:
+
+        favorites = Fav()
+        favorites.user_id = current_user_id
+        favorites.name = body['name']
+
   
-    #agrega user a la base de datos
-    db.session.add(favorites)
-    #guarda los cambios
-    db.session.commit()
+        #agrega user a la base de datos
+        db.session.add(favorites)
+        #guarda los cambios
+        db.session.commit()
 
-    getfavs  = Fav.query.filter_by(user_id = current_user_id)
-    getfavs = list(map(lambda x: x.serialize(), getfavs))
+        getfavs  = Fav.query.filter_by(user_id = current_user_id)
+        getfavs = list(map(lambda x: x.serialize(), getfavs))
     
-    return jsonify(getfavs), 200
-
+        return jsonify(getfavs), 200
+    else:
+        return jsonify({'msg':'El favorito ya existe', 'status':'failed'}), 200
 
 #delete favorites 
 @api.route('/favorites', methods=['DELETE'])
@@ -261,19 +273,20 @@ def delete_favorite():
          return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
     if 'id' not in body:
         return jsonify({'msg':'Debe especificar el id del favorito', 'status':'failed'}),400
-  
-    favorites = Fav()
-    getfavs  = favorites.query.filter_by(user_id = current_user_id , id = body['id']).first()
-  
-    #agrega user a la base de datos
-    db.session.delete(getfavs)
-    #guarda los cambios
-    db.session.commit()
-
-    getfavs  = favorites.query.filter_by(user_id = current_user_id)
-    getfavs = list(map(lambda x: x.serialize(), getfavs))
     
-    return jsonify(getfavs), 200
+    if 'id' is not None: 
+        favorites = Fav()
+        getfavs  = favorites.query.filter_by(user_id = current_user_id , id = body['id']).first()
+  
+        #agrega user a la base de datos
+        db.session.delete(getfavs)
+        #guarda los cambios
+        db.session.commit()
+
+        getfavs  = favorites.query.filter_by(user_id = current_user_id)
+        getfavs = list(map(lambda x: x.serialize(), getfavs))
+    
+        return jsonify(getfavs), 200
 
 
 #delete user
