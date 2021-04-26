@@ -16,7 +16,7 @@ export const Navbar = () => {
 		<nav className="navbar navbar-expand-sm navbar-dark" id="nav-bar">
 			<Link to="/">
 				<span className="navbar-brand" href="#">
-					Cultiva
+					<i className="fas fa-seedling" /> Cultiva
 				</span>
 			</Link>
 
@@ -43,12 +43,12 @@ export const Navbar = () => {
 						</Link>
 						<Link to="/" className="mr-2">
 							<span className="navbar-brand" href="#">
-								Favoritos
+								<i className="far fa-heart" />
 							</span>
 						</Link>
 						<Link to="/" className="mr-2">
 							<span className="navbar-brand" href="#" onClick={() => logOut()}>
-								Cerrar Sesión
+								<i className="fas fa-sign-out-alt" />
 							</span>
 						</Link>
 						<Link to="/userconfig" className="mr-2">
