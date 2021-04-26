@@ -35,115 +35,112 @@ def handle_hello():
 @api.route('/user/register', methods=['POST'])
 def create_user():
     
-        body = request.get_json() # get the request body content
+    body = request.get_json() # get the request body content
 
-        if body is None:
-            return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
-        if 'password' not in body:
-            return jsonify({'msg':'Necesita especificar una contraseña', 'status':'failed'}),400
-        if 'email' not in body:
-            return jsonify({'msg':'Necesita especificar un email', 'status':'failed'}), 400
-        if 'lastName' not in body:
-            return jsonify({'msg':'Necesita especificar un apellido', 'status':'failed'}), 400
-        if 'firstName' not in body:
-            return jsonify({'msg':'Necesita especificar un nombre', 'status':'failed'}), 400
+    if body is None:
+        return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
+    if 'password' not in body:
+        return jsonify({'msg':'Necesita especificar una contraseña', 'status':'failed'}),400
+    if 'email' not in body:
+        return jsonify({'msg':'Necesita especificar un email', 'status':'failed'}), 400
+    if 'lastName' not in body:
+        return jsonify({'msg':'Necesita especificar un apellido', 'status':'failed'}), 400
+    if 'firstName' not in body:
+        return jsonify({'msg':'Necesita especificar un nombre', 'status':'failed'}), 400
         
-        body_email = body['email']
-        user = User.query.filter_by(email == body_email).first()
+    body_email = body['email']
+    user = User.query.filter_by(email == body_email).first()
 
-        if user:
-             jsonify({'msg':'El usuario ya existe','status':'failed'}), 400
+    if user:
+        jsonify({'msg':'El usuario ya existe','status':'failed'}), 400
 
-        user = User()
-        user.email = body['email']
-        user.password = body['password']
-        user.lastName = body['lastName']
-        user.firstName = body['firstName']
-        user.is_active =True
-        #agrega user a la base de datos
-        db.session.add(user)
-        #guarda los cambios
-        db.session.commit()
+    user = User()
+    user.email = body['email']
+    user.password = body['password']
+    user.lastName = body['lastName']
+    user.firstName = body['firstName']
+    user.is_active =True
+    # agrega user a la base de datos
+    db.session.add(user)
+    # guarda los cambios
+    db.session.commit()
 
-        response_body = {
-            "msg": "Usuario Creado",
-            "status":"succesful"
-            }
+    response_body = {
+        "msg": "Usuario Creado",
+        "status":"succesful"
+    }
 
-        return jsonify(response_body), 200
+    return jsonify(response_body), 200
 
-#post información de cultivos
+# post información de cultivos
 
 @api.route('/user/cultivo', methods=['POST'])
 def create_cultivo():
    
-        body = request.get_json() # get the request body content
-        if body is None:
-             return jsonify({'msg':"El body está vacio", 'status':'failed'}), 400
-        if 'nombre' not in body:
-            return jsonify({'msg':'Necesita especificar un nombre', 'status':'failed'}),400
-        if 'epoca_siembra' not in body:
-            return jsonify({'msg':'Necesita especificar epoca_siembra ', 'status':'failed'}), 400
-        if 'clima' not in body:
-            return jsonify({'msg':'Necesita especificar clima', 'status':'failed'}), 400
-        if 'cosecha' not in body:
-            return jsonify({'msg':'Necesita especificar cosecha', 'status':'failed'}), 400
-        if 'tipo_de_suelo' not in body:
-            return jsonify({'msg':'Necesita especificar tipo_de_suelo', 'status':'failed'}), 400
-        if 'preparacion_del_suelo' not in body:
-            return jsonify({'msg':'Necesita especificar preparacion_del_suelo', 'status':'failed'}), 400
-        if 'plagas' not in body:
-            return jsonify({'msg':'Necesita especificar plagas', 'status':'failed'}), 400
+    body = request.get_json() # get the request body content
 
-        body_nombre = body['nombre']
-        cultivo = Post.query.filter_by(name == body_nombre).first()
+    if body is None:
+        return jsonify({'msg':"El body está vacio", 'status':'failed'}), 400
+    if 'nombre' not in body:
+        return jsonify({'msg':'Necesita especificar un nombre', 'status':'failed'}),400
+    if 'epoca_siembra' not in body:
+        return jsonify({'msg':'Necesita especificar epoca_siembra ', 'status':'failed'}), 400
+    if 'clima' not in body:
+        return jsonify({'msg':'Necesita especificar clima', 'status':'failed'}), 400
+    if 'cosecha' not in body:
+        return jsonify({'msg':'Necesita especificar cosecha', 'status':'failed'}), 400
+    if 'tipo_de_suelo' not in body:
+        return jsonify({'msg':'Necesita especificar tipo_de_suelo', 'status':'failed'}), 400
+    if 'preparacion_del_suelo' not in body:
+        return jsonify({'msg':'Necesita especificar preparacion_del_suelo', 'status':'failed'}), 400
+    if 'plagas' not in body:
+        return jsonify({'msg':'Necesita especificar plagas', 'status':'failed'}), 400
 
-        if cultivo:
-            return jsonify({'msg':'El cultivo ya existe', 'status':'failed'}), 400
+    body_nombre = body['nombre']
+    cultivo = Post.query.filter_by(name == body_nombre).first()
+
+    if cultivo:
+        return jsonify({'msg':'El cultivo ya existe', 'status':'failed'}), 400
         
-        post = Post()
-        post.nombre = body['nombre']  
-        post.epoca_siembra = body['epoca_siembra'] 
-        post.cosecha = body['cosecha'] 
-        post.clima = body['clima'] 
-        post.tipo_de_suelo = body['tipo_de_suelo'] 
-        post.preparacion_del_suelo = body['preparacion_del_suelo'] 
-        post.plagas = body['plagas']
+    post = Post()
+    post.nombre = body['nombre']  
+    post.epoca_siembra = body['epoca_siembra'] 
+    post.cosecha = body['cosecha'] 
+    post.clima = body['clima'] 
+    post.tipo_de_suelo = body['tipo_de_suelo'] 
+    post.preparacion_del_suelo = body['preparacion_del_suelo'] 
+    post.plagas = body['plagas']
    
-        #agrega user a la base de datos
-        db.session.add(post)
-        #guarda los cambios
-        db.session.commit()
+    # agrega user a la base de datos
+    db.session.add(post)
+    # guarda los cambios
+    db.session.commit()
 
-        response_body = {
-            "msg": "Cultivo creado",
-            "status":"succesful"
-            }
+    response_body = {
+        "msg": "Cultivo creado",
+        "status":"succesful"
+    }
 
-        return jsonify(response_body), 200
+    return jsonify(response_body), 200
     
 
-#login
+# login
 @api.route('/user/login', methods=['POST'])
 def login_user():
     email = request.json.get("email", None)
     password = request.json.get("password", None)
 
     user = User.query.filter_by(email=email, password=password).first()
-    user_password = User.query.filter_by(password).first()
-    user_email = User.query.filter_by(email).first()
 
     if user is None:
-        return jsonify({"msg": "El usuario no está registrado"}), 401
+        return jsonify({'msg': 'El usuario no está registrado', 'status':'failed'}), 401
     if email is None:
-        return jsonify({'msg':'Debe ingresar su email'}), 400
-    if password is None:
-        return jsonify({'msg':'Debe ingresar su contraseña'}), 400
-    if user_email is None:
-        return jsonify({'msg':'Email incorrecto', 'status':'failed'}), 400
-    if user_password is None:
-        return jsonify({'msg':'Contraseña incorrecta', 'status':'failed'}), 400
-    
+        return jsonify({'msg':'Debe ingresar un email', 'status':'failed'}), 400
+    if user.password != password:
+        return jsonify({'msg':'Contraseña incorrecta', 'status':'failed'}), 401
+    if user.email != email:
+        return jsonify({'msg':'Email incorrecto', 'status':'failed'}), 401
+
     # create a new token with the user id inside
     access_token = create_access_token(identity=user.id)
 
@@ -153,22 +150,24 @@ def login_user():
         "msg":"Sesión iniciada",
         "status":"succesful"
     }
-    
+
     return jsonify(response), 200
 
 
 # recuperar contraseña
 @api.route('/user/recover', methods=['POST'])
 def get_password():
-
     body = request.get_json()
     if body is None:
-        return jsonify({"message":"The request body is empty"}), 400
+        return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
     if 'email' not in body:
-        return jsonify({"message": "You have to specify an email"}), 400
+        return jsonify({'msg': 'Debe especificar un email'}), 400
 
     user = User()
     user = User.query.filter_by(email=body['email']).first()
+
+    if user is None:
+        return jsonify({'msg':'El email es incorrecto', 'status':'failed'}), 400
 
     message = Mail(from_email='samuelvalerin@protonmail.com',
                 to_emails=user.email,
@@ -181,7 +180,7 @@ def get_password():
         print(response.status_code)
         print(response.body)
         print(response.headers)
-        return jsonify({'message':'password sended'}), 200
+        return jsonify({'message':'password sended', 'status':'succesful'}), 200
     
     except Exception as e:
         print(e)
@@ -200,13 +199,12 @@ def list_vegetables():
 @jwt_required()
 def create_favorite():
     current_user_id = get_jwt_identity()
-    
    
     body = request.get_json() # get the request body content
     if body is None:
-         return "The request body is null", 400
+         return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
     if 'name' not in body:
-        return 'You need to specify the favorite name',400
+        return jsonify({'msg':'Debe especificar el nombre de un favorito', 'status':'failed'}),400
         
     favorites = Fav()
     favorites.user_id = current_user_id
@@ -231,9 +229,9 @@ def delete_favorite():
    
     body = request.get_json() # get the request body content
     if body is None:
-         return "The request body is null", 400
+         return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
     if 'id' not in body:
-        return 'You need to specify the favorite id',400
+        return jsonify({'msg':'Debe especificar el id del favorito', 'status':'failed'}),400
   
     favorites = Fav()
     getfavs  = favorites.query.filter_by(user_id = current_user_id , id = body['id']).first()
@@ -257,20 +255,28 @@ def delete_User():
     
     body = request.get_json() # get the request body content
     if body is None:
-         return "The request body is null", 400
+         return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
     if 'password' not in body:
-        return 'You need to specify the password',400
+        return jsonify({'msg':'Debe especificar su contraseña', 'status':'failed'}),400
     if 'email' not in body:
-        return 'You need to specify the email', 400
+        return jsonify({'msg':'Debe especificar su email', 'status':'succesful'}), 400
   
     user = User()
     getUser  = user.query.filter_by(id = current_user_id , email = body['email'], password = body['password']).first()
+
+    if user.email != body['email']:
+        return jsonify({'msg':'El email es incorrecto', 'status':'failed'}), 400
+    if user.password != bosy['password']:
+        return jsonify({'msg':'La contraseña es incorrecta', 'status':'failed'}), 400
   
     #agrega user a la base de datos
     db.session.delete(getUser)
     #guarda los cambios
     db.session.commit()
+
+    response_body = {
+        "msg": "Usuario Eliminado",
+        "status":"succesful"
+    }
     
-    return jsonify({
-        "msg": "Usuario Eliminado"
-        }), 200
+    return jsonify(response_body), 200
