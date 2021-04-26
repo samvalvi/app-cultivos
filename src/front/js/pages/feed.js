@@ -12,7 +12,7 @@ export function Feed() {
 					? store.cultivos.map((item, index) => {
 							return (
 								<div key={index}>
-									<Product name={item.nombre} description={item.cosecha} pos={index} />
+									<Product name={item.nombre} description={item.descripcion} pos={index} />
 								</div>
 							);
 					  })

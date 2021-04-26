@@ -42,7 +42,6 @@ export const Userconfig = () => {
 					</div>
 				</Col>
 				<Col sm={12} lg={6} className="text-left">
-					kevin_branch
 					<h1>Eliminar Usuario</h1>
 					<Form onSubmit={() => handleSubmit(event)}>
 						<Form.Row>

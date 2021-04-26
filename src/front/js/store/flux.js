@@ -78,7 +78,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(res => res.json())
 					.then(data => {
 						console.log(data);
-						setStore({ favlist: listFav });
+						setStore({ favlist: data });
 						console.log(store.favList);
 					})
 					.catch(err => console.log("error", err));
