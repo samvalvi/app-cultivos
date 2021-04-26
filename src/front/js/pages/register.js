@@ -7,12 +7,13 @@ import "../../styles/register.scss";
 
 export const Register = () => {
 	const { store, actions } = useContext(Context);
-
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [auth, setAuth] = useState(false);
+	const [error, setError] = useState(false);
+	const [msg, setMsg] = useState("");
 
 	const handleSummit = e => {
 		e.preventDefault();
@@ -23,16 +24,27 @@ export const Register = () => {
 			firstName: firstName
 		};
 
-		fetch("https://3001-yellow-bug-ezbxpbrs.ws-us03.gitpod.io/api/user/register", {
+		fetch("https://3001-blue-stork-ejly8s52.ws-us03.gitpod.io/api/user/register", {
 			method: "POST",
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
 		})
-			.then(res => res.json())
+			.then(res => {
+				res.json();
+
+				if (res.status == 400) {
+					setMsg(res.json().msg);
+					throw res.json().msg;
+					setError(true);
+				}
+				setError(false);
+				setMsg("");
+				console.log(res);
+			})
 			.then(data => {
 				console.log(data);
 				setAuth(true);
-				alert("Registro Completado");
+				setMsg("Usuario registrado");
 			})
 			.catch(error => console.log(error));
 	};
@@ -40,6 +52,16 @@ export const Register = () => {
 	return (
 		<Container className="p-5 mt-5">
 			<Row>
+				{error ? (
+					<div className="alert alert-danger" role="alert">
+						{error}
+					</div>
+				) : null}
+				{msg ? (
+					<div className="alert alert-succes" role="alert">
+						{msg}
+					</div>
+				) : null}
 				<Col lg={6}>
 					<div>
 						<h1>¡Bienvenido!</h1>

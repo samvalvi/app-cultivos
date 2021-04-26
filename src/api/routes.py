@@ -47,12 +47,11 @@ def create_user():
         return jsonify({'msg':'Necesita especificar un apellido', 'status':'failed'}), 400
     if 'firstName' not in body:
         return jsonify({'msg':'Necesita especificar un nombre', 'status':'failed'}), 400
-        
-    body_email = body['email']
-    user = User.query.filter_by(email == body_email).first()
+    
+    user = User.query.filter_by(email=body['email']).first()
 
     if user:
-        jsonify({'msg':'El usuario ya existe','status':'failed'}), 400
+        return jsonify({'msg':'El usuario ya existe','status':'failed'}), 200
 
     user = User()
     user.email = body['email']
@@ -60,6 +59,7 @@ def create_user():
     user.lastName = body['lastName']
     user.firstName = body['firstName']
     user.is_active =True
+
     # agrega user a la base de datos
     db.session.add(user)
     # guarda los cambios
@@ -97,10 +97,10 @@ def create_cultivo():
         return jsonify({'msg':'Necesita especificar plagas', 'status':'failed'}), 400
 
     body_nombre = body['nombre']
-    cultivo = Post.query.filter_by(name == body_nombre).first()
+    cultivo = Post.query.filter_by(name= body_nombre).first()
 
     if cultivo:
-        return jsonify({'msg':'El cultivo ya existe', 'status':'failed'}), 400
+        return jsonify({'msg':'El cultivo ya existe', 'status':'failed'}), 200
         
     post = Post()
     post.nombre = body['nombre']  
@@ -136,9 +136,9 @@ def login_user():
         return jsonify({'msg': 'El usuario no está registrado', 'status':'failed'}), 401
     if email is None:
         return jsonify({'msg':'Debe ingresar un email', 'status':'failed'}), 400
-    if user.password is not password:
+    if password is not user.password:
         return jsonify({'msg':'Contraseña incorrecta', 'status':'failed'}), 401
-    if user.email is not email:
+    if email is not user.email:
         return jsonify({'msg':'Email incorrecto', 'status':'failed'}), 401
 
     # create a new token with the user id inside
@@ -186,7 +186,7 @@ def get_password():
         print(e)
 
 
-@api.route('/user/userconfig', methods=['PUT'])
+@api.route('/user/password_update', methods=['PUT'])
 @jwt_required()
 def update_password():
     current_user_id = get_jwt_identity()
