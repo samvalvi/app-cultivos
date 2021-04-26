@@ -136,9 +136,9 @@ def login_user():
         return jsonify({'msg': 'El usuario no está registrado', 'status':'failed'}), 401
     if email is None:
         return jsonify({'msg':'Debe ingresar un email', 'status':'failed'}), 400
-    if user.password != password:
+    if user.password is not password:
         return jsonify({'msg':'Contraseña incorrecta', 'status':'failed'}), 401
-    if user.email != email:
+    if user.email is not email:
         return jsonify({'msg':'Email incorrecto', 'status':'failed'}), 401
 
     # create a new token with the user id inside
@@ -167,7 +167,7 @@ def get_password():
     user = User.query.filter_by(email=body['email']).first()
 
     if user is None:
-        return jsonify({'msg':'El email es incorrecto', 'status':'failed'}), 400
+        return jsonify({'msg':'El email es incorrecto', 'status':'failed'}), 401
 
     message = Mail(from_email='samuelvalerin@protonmail.com',
                 to_emails=user.email,
@@ -264,9 +264,9 @@ def delete_User():
     user = User()
     getUser  = user.query.filter_by(id = current_user_id , email = body['email'], password = body['password']).first()
 
-    if user.email != body['email']:
+    if user.email is not body['email']:
         return jsonify({'msg':'El email es incorrecto', 'status':'failed'}), 400
-    if user.password != bosy['password']:
+    if user.password is not body['password']:
         return jsonify({'msg':'La contraseña es incorrecta', 'status':'failed'}), 400
   
     #agrega user a la base de datos
