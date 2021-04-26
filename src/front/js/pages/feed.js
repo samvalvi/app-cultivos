@@ -8,13 +8,15 @@ export function Feed() {
 	return (
 		<div>
 			<div>
-				{store.cultivos.map((item, index) => {
-					return (
-						<div key={index}>
-							<Product name={item.nombre} description={item.cosecha} pos={index} />
-						</div>
-					);
-				})}
+				{store.userData
+					? store.cultivos.map((item, index) => {
+							return (
+								<div key={index}>
+									<Product name={item.nombre} description={item.descripcion} pos={index} />
+								</div>
+							);
+					  })
+					: "cargando"}
 			</div>
 		</div>
 	);

@@ -187,7 +187,9 @@ def get_password():
 
 
 @api.route('/user/userconfig', methods=['PUT'])
+@jwt_required()
 def update_password():
+    current_user_id = get_jwt_identity()
     
     body = request.get_json()
     if body is None:
@@ -198,8 +200,20 @@ def update_password():
         return jsonify({'msg':'Debe especificar una nueva contraseña', 'status':'failed'}), 400
 
     user = User()
-    user = User.query.filter_by()
+    user = User.query.filter_by(id=current_user_id).first()
+
+    if user.password == body['old_password']:
+        user.password = body['new_password']
+
+    db.session.add(user)
+    db.session.commit()
+
+    response_body = {
+        "msg":"Contraseña actualizada",
+        "status":"successful"
+    }
     
+    return jsonify(response_body), 200
 
 # get de informacion de cultivos
 @api.route('/post', methods=['GET'])

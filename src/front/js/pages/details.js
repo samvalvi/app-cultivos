@@ -29,6 +29,9 @@ export const Details = () => {
 				<h3>Cosecha</h3>
 				<p>{store.cultivos[detailsid].cosecha}</p>
 				<hr />
+				<h3>Plagas</h3>
+				<p>{store.cultivos[detailsid].plagas}</p>
+				<hr />
 			</div>
 			<Container className="text-center mb-3">
 				<h3>Productos Recomendados</h3>
