@@ -72,8 +72,8 @@ def create_user():
 
     return jsonify(response_body), 200
 
-# post información de cultivos
 
+# post información de cultivos
 @api.route('/user/cultivo', methods=['POST'])
 def create_cultivo():
    
@@ -185,6 +185,21 @@ def get_password():
     except Exception as e:
         print(e)
 
+
+@api.route('/user/userconfig', methods=['PUT'])
+def update_password():
+    
+    body = request.get_json()
+    if body is None:
+        return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
+    if 'old_password' not in body:
+        return jsonify({'msg':'Debe especificar su contraseña antigua', 'status':'failed'}), 400
+    if 'new_password'not in body:
+        return jsonify({'msg':'Debe especificar una nueva contraseña', 'status':'failed'}), 400
+
+    user = User()
+    user = User.query.filter_by()
+    
 
 # get de informacion de cultivos
 @api.route('/post', methods=['GET'])

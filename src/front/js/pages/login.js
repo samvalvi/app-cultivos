@@ -71,7 +71,7 @@ export const Login = () => {
 						</Form.Row>
 						<Form.Row>
 							<Col lg={8}>
-								<Button variant="primary" type="submit">
+								<Button variant="dark" className="btn btn-dark" type="submit">
 									Iniciar
 								</Button>
 								<Link className="w-25 btn btn-light" role="button" to="/" variant="light">
