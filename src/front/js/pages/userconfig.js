@@ -18,7 +18,7 @@ export const Userconfig = () => {
 			password: password
 		};
 
-		fetch("https://3001-harlequin-caterpillar-nd18p21b.ws-us03.gitpod.io/api/user/delete", {
+		fetch("https://3001-yellow-bug-ezbxpbrs.ws-us03.gitpod.io/api/user/delete", {
 			method: "DELETE",
 			body: JSON.stringify(body),
 			headers: { Authorization: "Bearer " + store.token, "Content-Type": "application/json" }
@@ -42,10 +42,8 @@ export const Userconfig = () => {
 					</div>
 				</Col>
 				<Col sm={12} lg={6} className="text-left">
- kevin_branch
 					<h1>Eliminar Usuario</h1>
 					<Form onSubmit={() => handleSubmit(event)}>
-
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupEmail">
