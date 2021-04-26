@@ -34,6 +34,7 @@ class Post(db.Model):
     tipo_de_suelo = db.Column(db.String(), nullable=False)
     preparacion_del_suelo = db.Column(db.String(), nullable=False)
     descripcion = db.Column(db.String(), nullable=False)
+    url_image = db.Column(db.String(), nullable=False)
 
     def serialize(self):
         return {
@@ -45,8 +46,8 @@ class Post(db.Model):
             "tipo_de_suelo": self.tipo_de_suelo,
             "preparacion_del_suelo": self.preparacion_del_suelo,
             "plagas": self.plagas,
-            "descripcion": self.descripcion
-           
+            "descripcion": self.descripcion,
+            "url_image": self.url_image
         }
 
 class Fav(db.Model):

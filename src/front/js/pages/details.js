@@ -38,19 +38,70 @@ export const Details = () => {
 				<hr />
 				<Row className="justify-content-center m">
 					<Col xs={3} md={2}>
-						<Image className="p-1" src="https://via.placeholder.com/100x100" roundedCircle />
+						<a
+							href="#"
+							onClick={() =>
+								window.open("https://www.greensolutionscr.com/bioeco-desengrasante-natural")
+							}>
+							<Image
+								id="product-detail"
+								className="p-1"
+								src="https://www.greensolutionscr.com/image/cache/data/bio-eco/JARD%C3%8DN%20FIBRA%20DE%20COCO%20MECHA%20LARGA-550x550.png"
+								roundedCircle
+							/>
+						</a>
 					</Col>
 					<Col xs={3} md={2}>
-						<Image className="p-1" src="https://via.placeholder.com/100x100" roundedCircle />
+						<a
+							href="#"
+							onClick={() => window.open("hhttps://www.greensolutionscr.com/combo-plagas-de-suelo-1")}>
+							<Image
+								className="p-1"
+								id="product-detail"
+								src="https://www.greensolutionscr.com/image/cache/catalog/Categorias/plagas%20de%20suelo-550x550h.PNG"
+								roundedCircle
+							/>
+						</a>
 					</Col>
 					<Col xs={3} md={2}>
-						<Image className="p-1" src="https://via.placeholder.com/100x100" roundedCircle />
+						<a
+							href="#"
+							onClick={() => window.open("https://www.greensolutionscr.com/fertilizer-bio-foliar")}>
+							<Image
+								className="p-1"
+								id="product-detail"
+								src="https://www.greensolutionscr.com/image/cache/data/bio-eco/BIOECO%20BIOFOLIAR2-550x550h.png"
+								roundedCircle
+							/>
+						</a>
 					</Col>
 					<Col xs={3} md={2}>
-						<Image className="p-1" src="https://via.placeholder.com/100x100" roundedCircle />
+						<a
+							href="#"
+							onClick={() =>
+								window.open("https://www.evergreencr.com/producto/repelente-a-base-de-ajo/")
+							}>
+							<Image
+								className="p-1"
+								id="product-detail"
+								src="https://www.evergreencr.com/wp-content/uploads/2018/07/Repelente-Organico-Litro-2.png"
+								roundedCircle
+							/>
+						</a>
 					</Col>
 					<Col xs={3} md={2}>
-						<Image className="p-1" src="https://via.placeholder.com/100x100" roundedCircle />
+						<a
+							href="#"
+							onClick={() =>
+								window.open("https://www.evergreencr.com/producto/insecticida-multiefecto/")
+							}>
+							<Image
+								className="p-1"
+								id="product-detail"
+								src="https://www.evergreencr.com/wp-content/uploads/2018/07/Insecticida-Multiefecto-1.png"
+								roundedCircle
+							/>
+						</a>
 					</Col>
 				</Row>
 			</Container>
