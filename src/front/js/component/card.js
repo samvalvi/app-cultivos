@@ -31,6 +31,12 @@ export function Product(props) {
 											onClick={() => actions.favFunction(props.name)}
 										/>
 									</Col>
+									<Col sm={6} lg={6}>
+										<i
+											className="fas fa-trash-alt"
+											onClick={() => actions.favFunctionDelete(props.pos)}
+										/>
+									</Col>
 								</Row>
 							</Card.Title>
 							<Card.Text>{props.description}</Card.Text>

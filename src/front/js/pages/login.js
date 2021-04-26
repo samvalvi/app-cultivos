@@ -32,6 +32,7 @@ export const Login = () => {
 				actions.setToken(data.access_token);
 				actions.setUserData(data);
 				actions.setUserStatus(true);
+				actions.setFavList(data.list_fav);
 				setAuth(true);
 				console.log(store.token);
 			})

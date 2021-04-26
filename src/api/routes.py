@@ -119,10 +119,14 @@ def login_user():
     
     # create a new token with the user id inside
     access_token = create_access_token(identity=user.id)
+    getfavs  = Fav.query.filter_by(user_id = user.id)
+    getfavs = list(map(lambda x: x.serialize(), getfavs))
+   
 
     response = {
         "access_token": access_token,
-        "user": user.serialize()
+        "user": user.serialize(), 
+        "list_fav" : getfavs
     }
     
     return jsonify(response), 200
@@ -178,21 +182,27 @@ def create_favorite():
          return "The request body is null", 400
     if 'name' not in body:
         return 'You need to specify the favorite name',400
-        
-    favorites = Fav()
-    favorites.user_id = current_user_id
-    favorites.name = body['name']
-  
-    #agrega user a la base de datos
-    db.session.add(favorites)
-    #guarda los cambios
-    db.session.commit()
-
-    getfavs  = Fav.query.filter_by(user_id = current_user_id)
-    getfavs = list(map(lambda x: x.serialize(), getfavs))
     
-    return jsonify(getfavs), 200
+    validate = Fav.query.filter_by(name = body['name']).first()
+    if validate is None:
 
+        favorites = Fav()
+        favorites.user_id = current_user_id
+        favorites.name = body['name']
+
+  
+        #agrega user a la base de datos
+        db.session.add(favorites)
+        #guarda los cambios
+        db.session.commit()
+
+        getfavs  = Fav.query.filter_by(user_id = current_user_id)
+        getfavs = list(map(lambda x: x.serialize(), getfavs))
+    
+        return jsonify(getfavs), 200
+    else:
+        return jsonify("favorito ya existe"), 200
+    
 
 #delete favorites 
 @api.route('/favorites', methods=['DELETE'])

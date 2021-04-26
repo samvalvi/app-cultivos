@@ -7,6 +7,7 @@ import { Single } from "./pages/single";
 import { Register } from "./pages/register";
 import { Details } from "./pages/details";
 import { Userconfig } from "./pages/userconfig";
+import { Favorites } from "./pages/favorites";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -57,6 +58,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/userconfig">
 							<Userconfig />
+						</Route>
+						<Route exact path="/favorites">
+							<Favorites />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

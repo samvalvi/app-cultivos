@@ -34,21 +34,21 @@ export const Navbar = () => {
 				{store.userStatus ? (
 					<div>
 						<span className="mr-2 navbar-brand">
-							{store.userData.user.firstName + " " + store.userData.user.lastName}
+							{store.userData.user.firstName + " " + store.userData.user.lastName + " |"}
 						</span>
 						<Link to="/feed" className="mr-2">
 							<span className="navbar-brand" href="#">
-								Feed
+								Feed |
 							</span>
 						</Link>
-						<Link to="/" className="mr-2">
+						<Link to="/favorites" className="mr-2">
 							<span className="navbar-brand" href="#">
-								Favoritos
+								Favoritos |
 							</span>
 						</Link>
 						<Link to="/" className="mr-2">
 							<span className="navbar-brand" href="#" onClick={() => logOut()}>
-								Cerrar Sesión
+								Cerrar Sesión |
 							</span>
 						</Link>
 						<Link to="/userconfig" className="mr-2">
