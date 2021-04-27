@@ -31,6 +31,7 @@ export const Details = () => {
 				<hr />
 				<h3>Plagas</h3>
 				<p>{store.cultivos[detailsid].plagas}</p>
+
 				<hr />
 			</div>
 			<Container className="text-center mb-3">

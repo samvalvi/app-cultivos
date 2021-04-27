@@ -57,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ token: data });
 			},
 			fetchCultivos() {
-				fetch("https://3001-yellow-bug-ezbxpbrs.ws-us03.gitpod.io/api/post/")
+				fetch("https://3001-beige-cod-ips36apn.ws-us03.gitpod.io/api/post")
 					.then(response => response.json())
 					.then(result => {
 						setStore({ cultivos: result });
@@ -67,24 +67,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			favFunction: name => {
 				const store = getStore();
-				const actions = getActions();
+
 				let token = store.token;
 
-				fetch("https://3001-yellow-bug-ezbxpbrs.ws-us03.gitpod.io/api/favorites", {
+				fetch(process.env.BACKEND_URL + "/api/favorites", {
 					method: "POST",
 					headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
 					body: JSON.stringify({ name: name })
 				})
 					.then(res => res.json())
 					.then(data => {
-						console.log(data);
-						setStore({ favlist: data });
-						console.log(store.favList);
+						console.log("resivo lista actulizada de favoritos: " + data);
+						setStore({ favList: data });
 					})
+					.then(() => console.log("favoritos guardados en store: " + store.favList))
+					.catch(err => console.log("error", err));
+			},
+			favFunctionDelete: id => {
+				const store = getStore();
+				let token = store.token;
+
+				fetch(process.env.BACKEND_URL + "/api/favorites", {
+					method: "DELETE",
+					headers: { Authorization: "Bearer " + token, "Content-Type": "application/json" },
+					body: JSON.stringify({ id: id })
+				})
+					.then(res => res.json())
+					.then(data => {
+						console.log("response delete fav: " + data);
+						setStore({ favList: data });
+					})
+					.then(() => console.log("favoritos guardados en store: " + store.favList))
 					.catch(err => console.log("error", err));
 			},
 			setFavList: listFav => {
-				setStore({ favlist: listFav });
+				setStore({ favList: listFav });
 			}
 		}
 	};

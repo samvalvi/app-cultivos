@@ -148,12 +148,16 @@ def login_user():
 
     # create a new token with the user id inside
     access_token = create_access_token(identity=user.id)
+    getfavs  = Fav.query.filter_by(user_id = user.id)
+    getfavs = list(map(lambda x: x.serialize(), getfavs))
+   
 
     response = {
         "access_token": access_token,
         "user": user.serialize(),
         "msg":"Sesión iniciada",
-        "status":"succesful"
+        "status":"succesful",
+        "list_fav" : getfavs
     }
 
     return jsonify(response), 200

@@ -41,7 +41,7 @@ export const Navbar = () => {
 								Feed
 							</span>
 						</Link>
-						<Link to="/" className="mr-2">
+						<Link to="/favorites" className="mr-2">
 							<span className="navbar-brand" href="#">
 								<i className="far fa-heart" />
 							</span>
