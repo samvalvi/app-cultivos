@@ -11,6 +11,7 @@ export const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [auth, setAuth] = useState(false);
+	const [msg, setMsg] = useState("");
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -19,7 +20,11 @@ export const Login = () => {
 			password: password
 		};
 
+<<<<<<< HEAD
+		fetch("https://3001-moccasin-cicada-lbfqo3z5.ws-us03.gitpod.io/api/user/login", {
+=======
 		fetch(process.env.BACKEND_URL + "/api/user/login", {
+>>>>>>> 051ab7699f5a73c79c2407d09cf1b8e522ef90bb
 			method: "POST",
 			body: JSON.stringify(body),
 			headers: {
@@ -28,6 +33,19 @@ export const Login = () => {
 		})
 			.then(res => res.json())
 			.then(data => {
+<<<<<<< HEAD
+				if (data.status === "succesful") {
+					console.log(data);
+					actions.setToken(data.access_token);
+					actions.setUserData(data);
+					actions.setUserStatus(true);
+					setAuth(true);
+					setMsg(data.msg);
+					console.log(store.token);
+				} else {
+					setMsg(data.msg);
+				}
+=======
 				console.log(data);
 				actions.setToken(data.access_token);
 				actions.setUserData(data);
@@ -35,6 +53,7 @@ export const Login = () => {
 				actions.setFavList(data.list_fav);
 				setAuth(true);
 				console.log(store.token);
+>>>>>>> 051ab7699f5a73c79c2407d09cf1b8e522ef90bb
 			})
 			.catch(err => console.log(err));
 	};
@@ -44,6 +63,11 @@ export const Login = () => {
 			<Row className="align-items-center">
 				<Col sm={12} md={8} lg={8}>
 					<h1>Inicio de sesión</h1>
+					{msg ? (
+						<div className="alert alert-danger" role="alert">
+							{msg}
+						</div>
+					) : null}
 					<Form onSubmit={() => handleSubmit(event)}>
 						<Form.Row>
 							<Col lg={12}>
@@ -73,7 +97,7 @@ export const Login = () => {
 						</Form.Row>
 						<Form.Row>
 							<Col lg={8}>
-								<Button variant="primary" type="submit">
+								<Button variant="dark" className="btn btn-dark" type="submit">
 									Iniciar
 								</Button>
 								<Link className="w-25 btn btn-light" role="button" to="/" variant="light">

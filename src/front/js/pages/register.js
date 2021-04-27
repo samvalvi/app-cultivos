@@ -7,12 +7,12 @@ import "../../styles/register.scss";
 
 export const Register = () => {
 	const { store, actions } = useContext(Context);
-
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [auth, setAuth] = useState(false);
+	const [msg, setMsg] = useState("");
 
 	const handleSummit = e => {
 		e.preventDefault();
@@ -23,16 +23,29 @@ export const Register = () => {
 			firstName: firstName
 		};
 
-		fetch("https://3001-yellow-bug-ezbxpbrs.ws-us03.gitpod.io/api/user/register", {
+		fetch("https://3001-moccasin-cicada-lbfqo3z5.ws-us03.gitpod.io/api/user/register", {
 			method: "POST",
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
 		})
-			.then(res => res.json())
+			.then(
+				res => res.json()
+
+				// if (res.status == 400) {
+				// 	setMsg(res.json().msg);
+				// 	throw res.json().msg;
+				// }
+				// setMsg("");
+				// console.log(res);
+			)
 			.then(data => {
-				console.log(data);
-				setAuth(true);
-				alert("Registro Completado");
+				if (data.status === "succesful") {
+					console.log(data);
+					setAuth(true);
+					setMsg(data.msg);
+				} else {
+					setMsg(data.msg);
+				}
 			})
 			.catch(error => console.log(error));
 	};
@@ -48,6 +61,11 @@ export const Register = () => {
 				</Col>
 				<Col sm={12} lg={6} className="text-left">
 					<h1>Registro</h1>
+					{msg ? (
+						<div className="alert alert-danger" role="alert">
+							{msg}
+						</div>
+					) : null}
 					<Form onSubmit={() => handleSummit(event)}>
 						<Form.Row>
 							<Col lg={12}>
