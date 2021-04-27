@@ -25,7 +25,7 @@ export function Product2(props) {
 
 									<Col sm={6} lg={6}>
 										<i
-											className="fas fa-trash-alt float-right"
+											className="fas fa-trash-alt float-right btn btn-outline-danger "
 											onClick={() => actions.favFunctionDelete(props.pos2)}
 										/>
 									</Col>

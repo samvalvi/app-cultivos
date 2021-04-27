@@ -23,10 +23,12 @@ export function Product(props) {
 										<h5>{props.name}</h5>
 									</Col>
 									<Col sm={6} lg={6}>
-										<i
-											className="far fa-heart float-right"
-											onClick={() => actions.favFunction(props.name)}
-										/>
+										<button
+											type="button"
+											className="btn btn-outline-success m-1 float-right"
+											onClick={() => actions.favFunction(props.name)}>
+											♥
+										</button>
 									</Col>
 								</Row>
 							</Card.Title>
