@@ -10,7 +10,10 @@ export const Userconfig = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [auth, setAuth] = useState(false);
-	const [msg, setMsg] = useState("");
+	const [deleteMsg, setDeleteMsg] = useState("");
+	const [passwordMsg, setPasswordMsg] = useState("");
+	const [oldPassword, setOldPassword] = useState("");
+	const [newPassword, setNewPassword] = useState("");
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -19,7 +22,7 @@ export const Userconfig = () => {
 			password: password
 		};
 
-		fetch("https://3001-blue-stork-ejly8s52.ws-us03.gitpod.io/#/workspace/app-cultivos/api/user/delete", {
+		fetch("https://3001-moccasin-cicada-lbfqo3z5.ws-us03.gitpod.io/api/user/delete", {
 			method: "DELETE",
 			body: JSON.stringify(body),
 			headers: { Authorization: "Bearer " + store.token, "Content-Type": "application/json" }
@@ -30,9 +33,35 @@ export const Userconfig = () => {
 					console.log(data);
 					actions.setUserStatus(false);
 					setAuth(true);
-					setMsg(data.msg);
+					setDeleteMsg(data.msg);
+					alert("Cuenta eliminada");
 				} else {
-					setMsg(data.msg);
+					setDeleteMsg(data.msg);
+				}
+			})
+			.catch(err => console.log(err));
+	};
+
+	const updatePassword = e => {
+		e.preventDefault();
+
+		const body = {
+			oldPassword: oldPassword,
+			newPassword: newPassword
+		};
+
+		fetch("https://3001-moccasin-cicada-lbfqo3z5.ws-us03.gitpod.io/api/user/password_update", {
+			method: "PUT",
+			body: JSON.stringify(body),
+			headers: { Authorization: "Bearer " + store.token, "Content-Type": "application/json" }
+		})
+			.then(res => res.json())
+			.then(data => {
+				if (data.status === "succesful") {
+					console.log(data);
+					setPasswordMsg(data.msg);
+				} else {
+					setPasswordMsg(data.msg);
 				}
 			})
 			.catch(err => console.log(err));
@@ -50,6 +79,13 @@ export const Userconfig = () => {
 			<Row>
 				<Col sm={12} lg={6} className="text-left">
 					<h1>Eliminar Usuario</h1>
+
+					{deleteMsg ? (
+						<div className="alert alert-danger" role="alert">
+							{deleteMsg}
+						</div>
+					) : null}
+
 					<Form onSubmit={() => handleSubmit(event)}>
 						<Form.Row>
 							<Col lg={12}>
@@ -59,6 +95,7 @@ export const Userconfig = () => {
 										placeholder="correo electrónico"
 										onChange={event => setEmail(event.target.value)}
 										value={email}
+										required
 									/>
 								</Form.Group>
 							</Col>
@@ -72,6 +109,7 @@ export const Userconfig = () => {
 										placeholder="contraseña"
 										onChange={event => setPassword(event.target.value)}
 										value={password}
+										required
 									/>
 								</Form.Group>
 							</Col>
@@ -92,11 +130,29 @@ export const Userconfig = () => {
 			<Row>
 				<Col sm={12} lg={6} className="text-left">
 					<h2>Actualizar contraseña</h2>
-					<Form>
+
+					{passwordMsg ? (
+						<div className="alert alert-danger" role="alert">
+							{passwordMsg}
+						</div>
+					) : null}
+					{passwordMsg ? (
+						<div className="alert alert-success" role="alert">
+							{passwordMsg}
+						</div>
+					) : null}
+
+					<Form onSubmit={() => updatePassword(event)}>
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupEmail">
-									<Form.Control type="email" placeholder="contraseña anterior" />
+									<Form.Control
+										type="password"
+										placeholder="contraseña anterior"
+										onChange={event => setOldPassword(event.target.value)}
+										value={oldPassword}
+										required
+									/>
 								</Form.Group>
 							</Col>
 						</Form.Row>
@@ -104,7 +160,13 @@ export const Userconfig = () => {
 						<Form.Row>
 							<Col lg={12}>
 								<Form.Group controlId="formGroupPassword">
-									<Form.Control type="password" placeholder="nueva contraseña" />
+									<Form.Control
+										type="password"
+										placeholder="nueva contraseña"
+										onChange={event => setNewPassword(event.target.value)}
+										value={newPassword}
+										required
+									/>
 								</Form.Group>
 							</Col>
 						</Form.Row>

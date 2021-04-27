@@ -17,7 +17,7 @@ from sendgrid.helpers.mail import Mail
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 
 # Api Key de sendGrid
-API_KEY = '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'
+API_KEY = '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'
 
 api = Blueprint('api', __name__)
 
@@ -143,7 +143,7 @@ def login_user():
 
     if user is None:
         return jsonify({'msg': 'El usuario no está registrado', 'status':'failed'}), 401
-    if user.password is not password:
+    if password != user.password:
         return jsonify({'msg':'Contraseña incorrecta', 'status':'failed'}), 401
 
     # create a new token with the user id inside
@@ -174,7 +174,7 @@ def recover_password():
     if user is None:
         return jsonify({'msg':'El email es incorrecto', 'status':'failed'}), 401
 
-    message = Mail(from_email='samuelvalerin@protonmail.com',
+    message = Mail(from_email='cultivacostarica@gmail.com',
                 to_emails=user.email,
                 subject='Recuperación de contraseña',
                 html_content='<strong>Su contraseña: </strong>' + user.password)
@@ -200,16 +200,16 @@ def update_password():
     body = request.get_json()
     if body is None:
         return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
-    if 'old_password' not in body:
+    if 'oldPassword' not in body:
         return jsonify({'msg':'Debe especificar su contraseña antigua', 'status':'failed'}), 400
-    if 'new_password'not in body:
+    if 'newPassword'not in body:
         return jsonify({'msg':'Debe especificar una nueva contraseña', 'status':'failed'}), 400
 
     user = User()
     user = User.query.filter_by(id=current_user_id).first()
 
-    if user.password == body['old_password']:
-        user.password = body['new_password']
+    if user.password == body['oldPassword']:
+        user.password = body['newPassword']
 
     db.session.add(user)
     db.session.commit()
@@ -302,11 +302,13 @@ def delete_User():
         return jsonify({'msg':'Debe especificar su email', 'status':'succesful'}), 400
   
     user = User()
-    getUser  = user.query.filter_by(id = current_user_id , email = body['email'], password = body['password']).first()
+    # getUser  = user.query.filter_by(id = current_user_id , email = body['email'], password = body['password']).first()
+    
+    getUser  = user.query.filter_by(id = current_user_id).first()
 
-    if user.email is not body['email']:
+    if getUser.email != body['email']:
         return jsonify({'msg':'El email es incorrecto', 'status':'failed'}), 400
-    if user.password is not body['password']:
+    if getUser.password != body['password']:
         return jsonify({'msg':'La contraseña es incorrecta', 'status':'failed'}), 400
   
     #agrega user a la base de datos

@@ -12,9 +12,9 @@ export function Product(props) {
 				<Col className="col-md-4">
 					<Card className="shadow">
 						<Card.Img variant="top" src={Fruta} />
-						<Card.Body>
+						{/* <Card.Body>
 							<Card.Title>{props.name}</Card.Title>
-						</Card.Body>
+						</Card.Body> */}
 					</Card>
 				</Col>
 				<Col className="col-md-8">
