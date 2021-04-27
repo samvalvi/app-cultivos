@@ -23,7 +23,7 @@ export const Register = () => {
 			firstName: firstName
 		};
 
-		fetch("https://3001-moccasin-cicada-lbfqo3z5.ws-us03.gitpod.io/api/user/register", {
+		fetch(process.env.BACKEND_URL + "/api/user/register", {
 			method: "POST",
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
