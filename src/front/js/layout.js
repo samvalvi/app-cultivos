@@ -49,6 +49,7 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/feed">
 							<Feed />
+							<Footer />
 						</Route>
 						<Route exact path="/details/:detailsid">
 							<Details />
@@ -61,6 +62,7 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/favorites">
 							<Favorites />
+							<Footer />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

@@ -34,11 +34,11 @@ export const Navbar = () => {
 				{store.userStatus ? (
 					<div>
 						<span className="mr-2 navbar-brand">
-							{store.userData.user.firstName + " " + store.userData.user.lastName }
+							{store.userData.user.firstName + " " + store.userData.user.lastName}
 						</span>
 						<Link to="/feed" className="mr-2">
 							<span className="navbar-brand" href="#">
-								Feed 
+								Feed
 							</span>
 						</Link>
 						<Link to="/favorites" className="mr-2">

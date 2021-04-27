@@ -6,7 +6,7 @@ import { Context } from "../store/appContext";
 export function Feed() {
 	const { store, actions } = useContext(Context);
 	return (
-		<div>
+		<div className="mb-5">
 			<div>
 				{store.userData
 					? store.cultivos.map((item, index) => {

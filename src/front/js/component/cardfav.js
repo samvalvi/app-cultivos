@@ -11,14 +11,14 @@ export function Product2(props) {
 			<Row>
 				<Col className="col-md-4">
 					<Card className="shadow">
-						<Card.Img variant="top" src={Fruta} />
+						<Card.Img variant="top" src={props.url_image2} />
 						<Card.Body>
 							<Card.Title>{props.name2}</Card.Title>
 						</Card.Body>
 					</Card>
 				</Col>
 				<Col className="col-md-8">
-					<Card className="shadow">
+					<Card className="shadow h-100">
 						<Card.Body>
 							<Card.Title>
 								<Row>
@@ -52,5 +52,6 @@ Product2.propTypes = {
 	name2: PropTypes.string,
 	type2: PropTypes.string,
 	description2: PropTypes.string,
-	pos2: PropTypes.number
+	pos2: PropTypes.number,
+	url_image2: PropTypes.string
 };

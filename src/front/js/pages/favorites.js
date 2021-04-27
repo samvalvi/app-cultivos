@@ -13,7 +13,7 @@ export function Favorites() {
 	console.log("favList: " + store.favList);
 
 	return (
-		<div>
+		<div className="mb-5">
 			<div>
 				{store.userData ? (
 					store.favList.length > 0 ? (
@@ -25,6 +25,7 @@ export function Favorites() {
 										name2={product.nombre}
 										description2={product.descripcion}
 										pos2={item.id}
+										url_image2={product.url_image}
 									/>
 								</div>
 							);
