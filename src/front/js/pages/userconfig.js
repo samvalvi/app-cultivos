@@ -59,10 +59,9 @@ export const Userconfig = () => {
 			.then(data => {
 				if (data.status === "succesful") {
 					console.log(data);
-					setPasswordMsg(data.msg);
+					alert(data.msg);
 				} else {
 					setPasswordMsg(data.msg);
-					alert(data.msg);
 				}
 			})
 			.catch(err => console.log(err));
@@ -132,13 +131,8 @@ export const Userconfig = () => {
 				<Col sm={12} lg={6} className="text-left">
 					<h2>Actualizar contraseña</h2>
 
-					{/* {passwordMsg ? (
-						<div className="alert alert-danger" role="alert">
-							{passwordMsg}
-						</div>
-					) : null} */}
 					{passwordMsg ? (
-						<div className="alert alert-success" role="alert">
+						<div className="alert alert-danger" role="alert">
 							{passwordMsg}
 						</div>
 					) : null}
@@ -149,7 +143,7 @@ export const Userconfig = () => {
 								<Form.Group controlId="formGroupEmail">
 									<Form.Control
 										type="password"
-										placeholder="contraseña anterior"
+										placeholder="contraseña actual"
 										onChange={event => setOldPassword(event.target.value)}
 										value={oldPassword}
 										required
