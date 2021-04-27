@@ -212,11 +212,17 @@ def update_password():
     user = User()
     user = User.query.filter_by(id=current_user_id).first()
 
+    # No guarda la nueva contraseña
     if user.password == body['oldPassword']:
         user.password = body['newPassword']
 
-    db.session.add(user)
-    db.session.commit()
+        db.session.add(user)
+        db.session.commit()
+        
+        return jsonify({'msg':'Contraseña actualizada', 'status':'succesful'}), 200
+
+    if user.password != body['oldPassword']:
+        return jsonify({'msg':'No se pudo actualizar la contraseña, contraseña actual incorrecta', 'status':'failed'}), 400
 
     response_body = {
         "msg":"Contraseña actualizada",
@@ -310,6 +316,8 @@ def delete_User():
     
     getUser  = user.query.filter_by(id = current_user_id).first()
 
+    if getUser.email != body['email'] and getUser.password != body['password']:
+        return jsonify({'msg':'El correo y la contraseña son incorrectos', 'status':'failed'}), 400
     if getUser.email != body['email']:
         return jsonify({'msg':'El email es incorrecto', 'status':'failed'}), 400
     if getUser.password != body['password']:

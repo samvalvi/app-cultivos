@@ -11,15 +11,10 @@ export function Product(props) {
 			<Row>
 				<Col className="col-md-4">
 					<Card className="shadow">
-<<<<<<< HEAD
-						<Card.Img variant="top" src={Fruta} />
-						{/* <Card.Body>
-=======
 						<Card.Img variant="top" src={props.url_image} />
 						<Card.Body>
->>>>>>> 051ab7699f5a73c79c2407d09cf1b8e522ef90bb
 							<Card.Title>{props.name}</Card.Title>
-						</Card.Body> */}
+						</Card.Body>
 					</Card>
 				</Col>
 				<Col className="col-md-8 ">
