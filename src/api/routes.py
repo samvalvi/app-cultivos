@@ -160,7 +160,7 @@ def login_user():
 
 # recuperar contraseña
 @api.route('/user/recover', methods=['POST'])
-def get_password():
+def recover_password():
     body = request.get_json()
     if body is None:
         return jsonify({'msg':'El body está vacío', 'status':'failed'}), 400
@@ -184,7 +184,7 @@ def get_password():
         print(response.status_code)
         print(response.body)
         print(response.headers)
-        return jsonify({'message':'password sended', 'status':'succesful'}), 200
+        return jsonify({'msg':'Correo enviado', 'status':'succesful'}), 200
     
     except Exception as e:
         print(e)
