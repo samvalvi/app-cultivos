@@ -12,9 +12,6 @@ export function Product2(props) {
 				<Col className="col-md-4">
 					<Card className="shadow">
 						<Card.Img variant="top" src={props.url_image2} />
-						<Card.Body>
-							<Card.Title>{props.name2}</Card.Title>
-						</Card.Body>
 					</Card>
 				</Col>
 				<Col className="col-md-8">
