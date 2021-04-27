@@ -16,6 +16,7 @@ from sendgrid.helpers.mail import Mail
 #jwt
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 
+# Api Key de sendGrid
 API_KEY = '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'
 
 api = Blueprint('api', __name__)
@@ -127,7 +128,7 @@ def create_cultivo():
     return jsonify(response_body), 200
     
 
-# login
+# Inicio de sesión
 @api.route('/user/login', methods=['POST'])
 def login_user():
     email = request.json.get("email", None)
@@ -158,7 +159,7 @@ def login_user():
     return jsonify(response), 200
 
 
-# recuperar contraseña
+# Recuperar contraseña
 @api.route('/user/recover', methods=['POST'])
 def recover_password():
     body = request.get_json()
@@ -190,6 +191,7 @@ def recover_password():
         print(e)
 
 
+# Actuaización de contraseña
 @api.route('/user/password_update', methods=['PUT'])
 @jwt_required()
 def update_password():
@@ -259,7 +261,7 @@ def create_favorite():
     else:
         return jsonify({'msg':'El favorito ya existe', 'status':'failed'}), 200
 
-#delete favorites 
+# delete favorites 
 @api.route('/favorites', methods=['DELETE'])
 @jwt_required()
 def delete_favorite():
@@ -285,7 +287,7 @@ def delete_favorite():
     return jsonify(getfavs), 200
 
 
-#delete user
+# delete user
 @api.route('/user/delete', methods=['DELETE'])
 @jwt_required()
 def delete_User():
