@@ -18,7 +18,7 @@ export function Product(props) {
 					</Card>
 				</Col>
 				<Col className="col-md-8 ">
-					<Card className="shadow">
+					<Card className="shadow h-100">
 						<Card.Body>
 							<Card.Title>
 								<Row>
