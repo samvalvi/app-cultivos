@@ -19,7 +19,7 @@ export const Login = () => {
 			password: password
 		};
 
-		fetch("https://3001-yellow-bug-ezbxpbrs.ws-us03.gitpod.io/api/user/login", {
+		fetch(process.env.BACKEND_URL + "/api/user/login", {
 			method: "POST",
 			body: JSON.stringify(body),
 			headers: {
@@ -32,6 +32,7 @@ export const Login = () => {
 				actions.setToken(data.access_token);
 				actions.setUserData(data);
 				actions.setUserStatus(true);
+				actions.setFavList(data.list_fav);
 				setAuth(true);
 				console.log(store.token);
 			})
