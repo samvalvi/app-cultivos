@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Product } from "../component/card";
+import { Product2 } from "../component/cardfav";
 
 import { Context } from "../store/appContext";
 import { element } from "prop-types";
@@ -7,25 +7,34 @@ import { element } from "prop-types";
 export function Favorites() {
 	const { store, actions } = useContext(Context);
 
-	const found = store.favList.map(item => {
-		return store.cultivos.find(element => element.nombre === item.name);
-	});
-	console.log(found);
-
-	console.log(store.favList);
+	const getProduct = name => {
+		return store.cultivos.find(element => element.nombre === name);
+	};
+	console.log("favList: " + store.favList);
 
 	return (
 		<div>
 			<div>
-				{store.userData
-					? found.map((item, index) => {
+				{store.userData ? (
+					store.favList.length > 0 ? (
+						store.favList.map((item, index) => {
+							let product = getProduct(item.name);
 							return (
 								<div key={index}>
-									<Product name={item.nombre} description={item.descripcion} pos={index} />
+									<Product2
+										name2={product.nombre}
+										description2={product.descripcion}
+										pos2={item.id}
+									/>
 								</div>
 							);
-					  })
-					: "cargando"}
+						})
+					) : (
+						<h1>No tiene favoritos guardados</h1>
+					)
+				) : (
+					"cargando"
+				)}
 			</div>
 		</div>
 	);
