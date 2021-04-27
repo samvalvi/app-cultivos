@@ -53,11 +53,10 @@ def create_user():
     if user:
         return jsonify({'msg':'El usuario ya existe','status':'failed'}), 200
 
-    encriptar_clave = generate_password_hash(body['password'])
 
     user = User()
     user.email = body['email']
-    user.password = encriptar_clave
+    user.password = body['password']
     user.lastName = body['lastName']
     user.firstName = body['firstName']
     user.is_active =True
@@ -143,9 +142,7 @@ def login_user():
 
     if user is None:
         return jsonify({'msg': 'El usuario no está registrado', 'status':'failed'}), 401
-    if user.email is not email:
-        return jsonify({'msg':'Email incorrecto', 'status':'failed'}), 401
-    if not check_password_hash(user.password, password):
+    if user.password is not password:
         return jsonify({'msg':'Contraseña incorrecta', 'status':'failed'}), 401
 
     # create a new token with the user id inside
@@ -274,19 +271,18 @@ def delete_favorite():
     if 'id' not in body:
         return jsonify({'msg':'Debe especificar el id del favorito', 'status':'failed'}),400
     
-    if 'id' is not None: 
-        favorites = Fav()
-        getfavs  = favorites.query.filter_by(user_id = current_user_id , id = body['id']).first()
+    favorites = Fav()
+    getfavs  = favorites.query.filter_by(user_id = current_user_id , id = body['id']).first()
   
-        #agrega user a la base de datos
-        db.session.delete(getfavs)
-        #guarda los cambios
-        db.session.commit()
+    #agrega user a la base de datos
+    db.session.delete(getfavs)
+    #guarda los cambios
+    db.session.commit()
 
-        getfavs  = favorites.query.filter_by(user_id = current_user_id)
-        getfavs = list(map(lambda x: x.serialize(), getfavs))
+    getfavs  = favorites.query.filter_by(user_id = current_user_id)
+    getfavs = list(map(lambda x: x.serialize(), getfavs))
     
-        return jsonify(getfavs), 200
+    return jsonify(getfavs), 200
 
 
 #delete user

@@ -42,7 +42,7 @@ export const Register = () => {
 				if (data.status === "succesful") {
 					console.log(data);
 					setAuth(true);
-					setMsg("Usuario registrado");
+					setMsg(data.msg);
 				} else {
 					setMsg(data.msg);
 				}

@@ -35,7 +35,7 @@ export const Login = () => {
 					actions.setUserData(data);
 					actions.setUserStatus(true);
 					setAuth(true);
-					setMsg("Sesión iniciada");
+					setMsg(data.msg);
 					console.log(store.token);
 				} else {
 					setMsg(data.msg);

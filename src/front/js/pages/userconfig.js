@@ -10,6 +10,7 @@ export const Userconfig = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [auth, setAuth] = useState(false);
+	const [msg, setMsg] = useState("");
 
 	const handleSubmit = e => {
 		e.preventDefault();
@@ -18,17 +19,21 @@ export const Userconfig = () => {
 			password: password
 		};
 
-		fetch("https://3001-yellow-bug-ezbxpbrs.ws-us03.gitpod.io/api/user/delete", {
+		fetch("https://3001-blue-stork-ejly8s52.ws-us03.gitpod.io/#/workspace/app-cultivos/api/user/delete", {
 			method: "DELETE",
 			body: JSON.stringify(body),
 			headers: { Authorization: "Bearer " + store.token, "Content-Type": "application/json" }
 		})
 			.then(res => res.json())
 			.then(data => {
-				console.log(data);
-				actions.setUserStatus(false);
-				setAuth(true);
-				alert("Cuenta Eliminada");
+				if (data.status === "succesful") {
+					console.log(data);
+					actions.setUserStatus(false);
+					setAuth(true);
+					setMsg(data.msg);
+				} else {
+					setMsg(data.msg);
+				}
 			})
 			.catch(err => console.log(err));
 	};

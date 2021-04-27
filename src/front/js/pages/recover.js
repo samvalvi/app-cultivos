@@ -24,7 +24,7 @@ export function Recover() {
 				if (data.status === "succesful") {
 					console.log(data);
 					setAuth(true);
-					setMsg("Correo enviado");
+					setMsg(data.msg);
 				} else {
 					setMsg(data.msg);
 				}
@@ -38,7 +38,11 @@ export function Recover() {
 				<Col sm={10} lg={8}>
 					<h1>¿Olvidó su contraseña?</h1>
 					<h5>Ingrese su correo electrónico</h5>
-
+					{msg ? (
+						<div className="alert alert-danger" role="alert">
+							{msg}
+						</div>
+					) : null}
 					<Form onSubmit={() => handleSummit(event)}>
 						<Form.Group controlId="formBasicEmail">
 							<Form.Control
