@@ -35,6 +35,7 @@ class Post(db.Model):
     preparacion_del_suelo = db.Column(db.String(), nullable=False)
     descripcion = db.Column(db.String(), nullable=False)
     url_image = db.Column(db.String(), nullable=False)
+    
 
     def serialize(self):
         return {

@@ -26,14 +26,14 @@ export function Product2(props) {
 									<Col sm={6} lg={6}>
 										<i
 											className="fas fa-trash-alt float-right btn btn-outline-danger "
-											onClick={() => actions.favFunctionDelete(props.pos2)}
+											onClick={() => actions.favFunctionDelete(props.pos3)}
 										/>
 									</Col>
 								</Row>
 							</Card.Title>
 							<Card.Text>{props.description2}</Card.Text>
 							<Card.Text className="float-right">
-								<Link to={"/details/" + props.pos2}>
+								<Link to={"/details/" + (props.pos2 - 1)}>
 									<small>ver más</small>
 								</Link>
 							</Card.Text>
@@ -50,5 +50,6 @@ Product2.propTypes = {
 	type2: PropTypes.string,
 	description2: PropTypes.string,
 	pos2: PropTypes.number,
-	url_image2: PropTypes.string
+	url_image2: PropTypes.string,
+	pos3: PropTypes.number
 };

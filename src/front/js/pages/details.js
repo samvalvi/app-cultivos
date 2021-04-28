@@ -7,13 +7,22 @@ import { Link, useParams } from "react-router-dom";
 export const Details = () => {
 	const { store, actions } = useContext(Context);
 	const { detailsid } = useParams();
+	console.log("cultivos: " + store.cultivos);
+	console.log("detailsid: " + detailsid);
+	store.cultivos[detailsid];
 
 	return store.cultivos[detailsid] ? (
 		<Container>
-			<div className="container text-white text-justify p-5 mt-5" id="bgDetails">
+			<div
+				className="container text-white text-justify p-5 mt-5 "
+				id="bgDetails"
+				style={{ backgroundImage: `url(${store.cultivos[detailsid].url_image})` }}>
 				<h4>{store.cultivos[detailsid].nombre}</h4>
 			</div>
 			<div className="container text-black text-justify p-5 mt-5">
+				<h3>Descripción</h3>
+				<p>{store.cultivos[detailsid].descripcion}</p>
+				<hr />
 				<h3>Clima</h3>
 				<p>{store.cultivos[detailsid].clima}</p>
 				<hr />
