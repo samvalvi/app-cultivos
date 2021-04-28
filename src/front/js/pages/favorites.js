@@ -24,14 +24,15 @@ export function Favorites() {
 									<Product2
 										name2={product.nombre}
 										description2={product.descripcion}
-										pos2={item.id}
+										pos2={product.id}
 										url_image2={product.url_image}
+										pos3={item.id}
 									/>
 								</div>
 							);
 						})
 					) : (
-						<h1>No tiene favoritos guardados</h1>
+						<h1 className="text-center mt-5 ">Agrega tus Cultivos para Favoritos para verlos aqui</h1>
 					)
 				) : (
 					"cargando"
