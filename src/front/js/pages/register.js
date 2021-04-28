@@ -60,7 +60,7 @@ export const Register = () => {
 								<h5 className="font-weight-normal">Cree su cuenta</h5>
 							</div>
 
-							<h4 className="display-4">Registro</h4>
+							<h3 className="display-5">Registro</h3>
 							{msg ? (
 								<div className="alert alert-danger" role="alert">
 									{msg}
