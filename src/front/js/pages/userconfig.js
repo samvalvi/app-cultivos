@@ -22,7 +22,7 @@ export const Userconfig = () => {
 			password: password
 		};
 
-		fetch("https://3001-moccasin-cicada-lbfqo3z5.ws-us03.gitpod.io/api/user/delete", {
+		fetch(process.env.BACKEND_URL + "/api/user/delete", {
 			method: "DELETE",
 			body: JSON.stringify(body),
 			headers: { Authorization: "Bearer " + store.token, "Content-Type": "application/json" }
@@ -50,7 +50,7 @@ export const Userconfig = () => {
 			newPassword: newPassword
 		};
 
-		fetch("https://3001-moccasin-cicada-lbfqo3z5.ws-us03.gitpod.io/api/user/password_update", {
+		fetch(process.env.BACKEND_URL + "/api/user/password_update", {
 			method: "PUT",
 			body: JSON.stringify(body),
 			headers: { Authorization: "Bearer " + store.token, "Content-Type": "application/json" }

@@ -10,7 +10,7 @@ export const Footer = () => {
 					<i className="fas fa-seedling fa-3x" />
 				</div>
 				<div className="col-sm-4 text-center align-self-center">
-					<h5>Contáctanos</h5>
+					<h5>Contáctenos</h5>
 					<p className="text-justify text-center align-self-center">cultivacostarica@gmail.com</p>
 				</div>
 				<div className="col-sm-4 text-center align-self-center">

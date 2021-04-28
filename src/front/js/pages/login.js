@@ -46,10 +46,10 @@ export const Login = () => {
 	};
 
 	return (
-		<div className="container-fluid p-3 mt-4">
+		<div className="container-fluid p-3 mt-auto">
 			<Row className="justify-content-center">
 				<Col sm={10} md={10}>
-					<Card className="col-lg-8 mx-auto shadow p-3">
+					<Card className="col-lg-7 border-0 mx-auto shadow p-3">
 						<h4 className="display-4">Inicie sesión en su cuenta</h4>
 						<p className="text-wrap font-weight-normal">
 							Ingrese sus credenciales para acceder a su cuenta
@@ -66,7 +66,7 @@ export const Login = () => {
 										<InputGroup className="mb-2 mr-sm-2">
 											<InputGroup.Prepend>
 												<InputGroup.Text>
-													<i className="fas fa-user" />
+													<i className="fas fa-at" />
 												</InputGroup.Text>
 											</InputGroup.Prepend>
 											<Form.Control
