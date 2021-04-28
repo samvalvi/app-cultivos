@@ -102,10 +102,10 @@ export const Login = () => {
 							</Form.Row>
 							<Form.Row>
 								<Col lg={8}>
-									<Button variant="dark" className="m-1 btn btn-dark" type="submit">
+									<Button variant="dark" className="mr-1 btn btn-dark" type="submit">
 										Iniciar
 									</Button>
-									<Link className="m-1 btn btn-light" role="button" to="/" variant="light">
+									<Link className="ml-1 btn btn-light" role="button" to="/" variant="light">
 										Cancelar
 									</Link>
 								</Col>
