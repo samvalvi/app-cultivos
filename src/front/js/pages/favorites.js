@@ -32,7 +32,7 @@ export function Favorites() {
 							);
 						})
 					) : (
-						<h1 className="text-center mt-5 ">Agrega tus Cultivos para Favoritos para verlos aqui</h1>
+						<h1 className="text-center mt-5 ">Agrega tus Cultivos Favoritos </h1>
 					)
 				) : (
 					"cargando"
