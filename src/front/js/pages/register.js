@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
 import { Button, Container, Row, Col, InputGroup, Card, Form, ButtonGroup } from "react-bootstrap";
 import { Link, useParams, Redirect } from "react-router-dom";
+
 import "../../styles/register.scss";
 
 export const Register = () => {
