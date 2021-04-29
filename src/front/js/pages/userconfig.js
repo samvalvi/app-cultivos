@@ -63,6 +63,7 @@ export const Userconfig = () => {
 				} else {
 					setPasswordMsg(data.msg);
 				}
+				setPasswordMsg("");
 			})
 			.catch(err => console.log(err));
 	};
