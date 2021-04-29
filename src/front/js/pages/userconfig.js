@@ -79,7 +79,7 @@ export const Userconfig = () => {
 			<hr />
 			<Row>
 				<Col sm={12} lg={6} className="text-left">
-					<h1>Eliminar Usuario</h1>
+					<h4 className="display-4">Eliminar cuenta</h4>
 
 					{deleteMsg ? (
 						<div className="alert alert-danger" role="alert">
@@ -130,7 +130,7 @@ export const Userconfig = () => {
 			<hr />
 			<Row>
 				<Col sm={12} lg={6} className="text-left">
-					<h2>Actualizar contraseña</h2>
+					<h4 className="display-4">Actualizar contraseña</h4>
 
 					{passwordMsg ? (
 						<div className="alert alert-danger" role="alert">
