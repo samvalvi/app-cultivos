@@ -25,6 +25,7 @@ export function Recover() {
 					console.log(data);
 					setAuth(true);
 					setMsg(data.msg);
+					alert("Email enviado con su contraseña");
 				} else {
 					setMsg(data.msg);
 				}
@@ -70,7 +71,7 @@ export function Recover() {
 								Cancelar
 							</Link>
 						</Form>
-						{auth ? <Redirect to="/" /> : null}
+						{auth ? <Redirect to="/login" /> : null}
 					</Card>
 				</Col>
 			</Row>

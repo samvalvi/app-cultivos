@@ -12,7 +12,7 @@ export function Info() {
 		<div className="p-3">
 			<div className="row text-center">
 				<div className="col">
-					<h2>Nosotros</h2>
+					<h2 className="display-4">Nosotros</h2>
 					<p className="mt-3">Conoce nuestro equipo de programadores</p>
 				</div>
 			</div>

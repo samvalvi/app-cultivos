@@ -64,7 +64,7 @@ export const Details = () => {
 					<Col xs={3} md={2}>
 						<a
 							href="#"
-							onClick={() => window.open("hhttps://www.greensolutionscr.com/combo-plagas-de-suelo-1")}>
+							onClick={() => window.open("https://www.greensolutionscr.com/combo-plagas-de-suelo-1")}>
 							<Image
 								className="p-1"
 								id="product-detail"
