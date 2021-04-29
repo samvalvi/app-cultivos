@@ -49,7 +49,7 @@ export const Login = () => {
 		<Container className="container-fluid p-3 mt-auto">
 			<Row className="justify-content-center">
 				<Col sm={10} md={10}>
-					<Card className="col-lg-7 border-0 mx-auto shadow p-3">
+					<Card className="col-lg-8 border-0 mx-auto shadow p-3">
 						<h4 className="display-4">Inicie sesión en su cuenta</h4>
 						<p className="text-wrap font-weight-normal">
 							Ingrese sus credenciales para acceder a su cuenta

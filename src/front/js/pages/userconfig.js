@@ -70,7 +70,7 @@ export const Userconfig = () => {
 
 	return (
 		<Container className="p-5 mt-5">
-			<h1>Configuración de la cuenta</h1>
+			<h4 className="display-4">Configuración de la cuenta</h4>
 			<Row>
 				<div className="p-3">
 					<img src={User} className="img-fluid" alt="perfil" id="perfil" />
@@ -79,7 +79,7 @@ export const Userconfig = () => {
 			<hr />
 			<Row>
 				<Col sm={12} lg={6} className="text-left">
-					<h4 className="display-4">Eliminar cuenta</h4>
+					<h4>Eliminar cuenta</h4>
 
 					{deleteMsg ? (
 						<div className="alert alert-danger" role="alert">
@@ -130,7 +130,7 @@ export const Userconfig = () => {
 			<hr />
 			<Row>
 				<Col sm={12} lg={6} className="text-left">
-					<h4 className="display-4">Actualizar contraseña</h4>
+					<h4>Actualizar contraseña</h4>
 
 					{passwordMsg ? (
 						<div className="alert alert-danger" role="alert">
