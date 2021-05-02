@@ -1,7 +1,21 @@
 #home {
-    background-image: url("../img/home-background.jpg");
+    background-image: url("../img/jardin.png");
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    min-width:100%;
+    min-height:100%;
+    overflow: auto;
+}
+
+#fondonegro{
+    color:white;
+    background-color: rgba(154,142,108,0.3);
+    height: 100%;
+}
+
+#home-text {
+    font-size: 32px;
+    text-align: justify;
 }

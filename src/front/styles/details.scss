@@ -1,9 +1,10 @@
 #bgDetails {
-    background-image: url("../img/home-background.jpg");
+  
     background-attachment: fixed;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat !important;
     background-size: cover;
+    width: 80vw !important;
 }
 
 .circle{
@@ -14,4 +15,17 @@
     text-align: center;
     display: inline;
     margin-left: 20px;
+}
+
+#product-detail {
+    border: 1px solid;
+    border-color: grey;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+}
+img.absolute {
+  left: 50%;
+  margin-left: -200px;
+  position: absolute;
 }

@@ -3,11 +3,11 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Register } from "./pages/register";
 import { Details } from "./pages/details";
 import { Userconfig } from "./pages/userconfig";
+import { Favorites } from "./pages/favorites";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -34,20 +34,24 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/login">
 							<Login />
+							<Footer />
 						</Route>
 						<Route exact path="/recover">
 							<Recover />
+							<Footer />
 						</Route>
 						<Route exact path="/single/:theid">
 							<Single />
 						</Route>
 						<Route exact path="/register">
 							<Register />
+							<Footer />
 						</Route>
 						<Route exact path="/feed">
 							<Feed />
+							<Footer />
 						</Route>
-						<Route exact path="/details">
+						<Route exact path="/details/:detailsid">
 							<Details />
 						</Route>
 						<Route exact path="/about">
@@ -55,6 +59,10 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/userconfig">
 							<Userconfig />
+						</Route>
+						<Route exact path="/favorites">
+							<Favorites />
+							<Footer />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
-
-import { Button, Container, Row, Col, Form, ButtonGroup } from "react-bootstrap";
+import { Button, Container, Row, Col, InputGroup, Card, Form, ButtonGroup } from "react-bootstrap";
 import { Link, useParams, Redirect } from "react-router-dom";
+
 import "../../styles/register.scss";
 
 export const Register = () => {
 	const { store, actions } = useContext(Context);
-
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
 	const [auth, setAuth] = useState(false);
+	const [msg, setMsg] = useState("");
 
 	const handleSummit = e => {
 		e.preventDefault();
@@ -23,99 +23,134 @@ export const Register = () => {
 			firstName: firstName
 		};
 
-		fetch("https://3001-jade-silverfish-j1cpbwt8.ws-us03.gitpod.io/api/user/register", {
+		fetch(process.env.BACKEND_URL + "/api/user/register", {
 			method: "POST",
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
 		})
 			.then(res => res.json())
 			.then(data => {
-				console.log(data);
-				setAuth(true);
+				if (data.status === "succesful") {
+					console.log(data);
+					setAuth(true);
+					setMsg(data.msg);
+				} else {
+					setMsg(data.msg);
+				}
 			})
 			.catch(error => console.log(error));
 	};
 
 	return (
-		<Container className="p-5 mt-5">
-			<Row>
-				<Col lg={6} className="displayNone">
-					<div className="bg-image">
-						<div className="bg-blur" />
-					</div>
+		<Container className="p-3 mt-5">
+			<Row className="justify-content-center">
+				<Col sm={10} md={10}>
+					<Card className="col-lg-7 border-0 mx-auto shadow p-3">
+						<h4 className="display-4">¡Bienvenido!</h4>
+						<h5 className="font-weight-normal">Cree su cuenta</h5>
+						{msg ? (
+							<div className="alert alert-danger" role="alert">
+								{msg}
+							</div>
+						) : null}
+						<Form onSubmit={() => handleSummit(event)}>
+							<Form.Row>
+								<Col lg={12}>
+									<Form.Group controlId="formGroupEmail">
+										<InputGroup className="mb-2 mr-sm-2">
+											<InputGroup.Prepend>
+												<InputGroup.Text>
+													<i className="fas fa-user" />
+												</InputGroup.Text>
+											</InputGroup.Prepend>
+											<Form.Control
+												type="text"
+												placeholder="primer nombre"
+												onChange={event => setFirstName(event.target.value)}
+												value={firstName}
+												required
+											/>
+										</InputGroup>
+									</Form.Group>
+								</Col>
+							</Form.Row>
 
-					<div className="bg-text">
-						<h1>¡Bienvenido!</h1>
-						<h5>Cree su cuenta</h5>
-					</div>
-				</Col>
-				<Col sm={12} lg={6} className="text-left">
-					<h1>Registro</h1>
-					<Form onSubmit={() => handleSummit(event)}>
-						<Form.Row>
-							<Col lg={12}>
-								<Form.Group controlId="formGroupEmail">
-									<Form.Control
-										type="text"
-										placeholder="primer nombre"
-										onChange={event => setFirstName(event.target.value)}
-										value={firstName}
-									/>
-								</Form.Group>
-							</Col>
-						</Form.Row>
+							<Form.Row>
+								<Col lg={12}>
+									<Form.Group controlId="formGroupEmail">
+										<InputGroup className="mb-2 mr-sm-2">
+											<InputGroup.Prepend>
+												<InputGroup.Text>
+													<i className="fas fa-user" />
+												</InputGroup.Text>
+											</InputGroup.Prepend>
+											<Form.Control
+												type="text"
+												placeholder="primer apellido"
+												onChange={event => setLastName(event.target.value)}
+												value={lastName}
+												required
+											/>
+										</InputGroup>
+									</Form.Group>
+								</Col>
+							</Form.Row>
 
-						<Form.Row>
-							<Col lg={12}>
-								<Form.Group controlId="formGroupEmail">
-									<Form.Control
-										type="text"
-										placeholder="primer apellido"
-										onChange={event => setLastName(event.target.value)}
-										value={lastName}
-									/>
-								</Form.Group>
-							</Col>
-						</Form.Row>
+							<Form.Row>
+								<Col lg={12}>
+									<Form.Group controlId="formGroupEmail">
+										<InputGroup className="mb-2 mr-sm-2">
+											<InputGroup.Prepend>
+												<InputGroup.Text>
+													<i className="fas fa-at" />
+												</InputGroup.Text>
+											</InputGroup.Prepend>
+											<Form.Control
+												type="email"
+												placeholder="correo electrónico"
+												onChange={event => setEmail(event.target.value)}
+												value={email}
+												required
+											/>
+										</InputGroup>
+									</Form.Group>
+								</Col>
+							</Form.Row>
 
-						<Form.Row>
-							<Col lg={12}>
-								<Form.Group controlId="formGroupEmail">
-									<Form.Control
-										type="email"
-										placeholder="correo electrónico"
-										onChange={event => setEmail(event.target.value)}
-										value={email}
-									/>
-								</Form.Group>
-							</Col>
-						</Form.Row>
+							<Form.Row>
+								<Col lg={12}>
+									<Form.Group controlId="formGroupPassword">
+										<InputGroup className="mb-2 mr-sm-2">
+											<InputGroup.Prepend>
+												<InputGroup.Text>
+													<i className="fas fa-lock" />
+												</InputGroup.Text>
+											</InputGroup.Prepend>
+											<Form.Control
+												type="password"
+												placeholder="contraseña"
+												onChange={event => setPassword(event.target.value)}
+												value={password}
+												required
+											/>
+										</InputGroup>
+									</Form.Group>
+								</Col>
+							</Form.Row>
 
-						<Form.Row>
-							<Col lg={12}>
-								<Form.Group controlId="formGroupPassword">
-									<Form.Control
-										type="password"
-										placeholder="contraseña"
-										onChange={event => setPassword(event.target.value)}
-										value={password}
-									/>
-								</Form.Group>
-							</Col>
-						</Form.Row>
-
-						<Form.Row>
-							<Col lg={10}>
-								<Button variant="primary" type="submit" className=" w-25 btn btn-dark">
-									Crear
-								</Button>{" "}
-								<Link to="/" role="button" className="w-25 btn btn-light" variant="light">
-									Cancelar
-								</Link>
-							</Col>
-						</Form.Row>
-					</Form>
-					{auth ? <Redirect to="/feed" /> : null}
+							<Form.Row>
+								<Col lg={10}>
+									<Button variant="primary" type="submit" className="btn btn-dark">
+										Crear
+									</Button>{" "}
+									<Link to="/" role="button" className="ml-1 btn btn-light" variant="light">
+										Cancelar
+									</Link>
+								</Col>
+							</Form.Row>
+						</Form>
+						{auth ? <Redirect to="/login" /> : null}
+					</Card>
 				</Col>
 			</Row>
 		</Container>

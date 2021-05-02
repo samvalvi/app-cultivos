@@ -1,11 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link, Redirect } from "react-router-dom";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Card, InputGroup, Form, Button } from "react-bootstrap";
 
 export function Recover() {
 	const [emailRecover, setEmailRecover] = useState("");
 	const [auth, setAuth] = useState(false);
+	const [msg, setMsg] = useState("");
 
 	const handleSummit = e => {
 		e.preventDefault();
@@ -13,45 +14,65 @@ export function Recover() {
 			email: emailRecover
 		};
 
-		fetch("https://3001-jade-silverfish-j1cpbwt8.ws-us03.gitpod.io/api/user/recover", {
+		fetch(process.env.BACKEND_URL + "/api/user/recover", {
 			method: "POST",
 			body: JSON.stringify(response),
 			headers: { "Content-Type": "application/json" }
 		})
 			.then(res => res.json())
 			.then(data => {
-				console.log(data);
-				setAuth(true);
+				if (data.status === "succesful") {
+					console.log(data);
+					setAuth(true);
+					setMsg(data.msg);
+					alert("Email enviado con su contraseña");
+				} else {
+					setMsg(data.msg);
+				}
 			})
 			.catch(error => console.log(error));
 	};
 
 	return (
-		<Container className="p-3 m-0">
-			<Row>
+		<Container className="p-3 mt-auto">
+			<Row className="justify-content-center">
 				<Col sm={10} lg={8}>
-					<h2>¿Olvidó su contraseña?</h2>
-					<h3>Ingrese su correo electrónico</h3>
+					<Card className="shadow border-0 p-3">
+						<h4 className="display-4">¿Olvidó su contraseña?</h4>
+						<p className="text-wrap font-weight-normal">Ingrese su correo electrónico</p>
+						{msg ? (
+							<div className="alert alert-danger" role="alert">
+								{msg}
+							</div>
+						) : null}
+						<Form onSubmit={() => handleSummit(event)}>
+							<Form.Group controlId="formBasicEmail">
+								<InputGroup className="mb-2">
+									<InputGroup.Prepend>
+										<InputGroup.Text>
+											<i className="fas fa-at" />
+										</InputGroup.Text>
+									</InputGroup.Prepend>
+									<Form.Control
+										type="email"
+										placeholder="Correo electrónico"
+										onChange={event => setEmailRecover(event.target.value)}
+										value={emailRecover}
+										required
+									/>
+								</InputGroup>
+							</Form.Group>
 
-					<Form onSubmit={() => handleSummit(event)}>
-						<Form.Group controlId="formBasicEmail">
-							<Form.Control
-								type="email"
-								placeholder="Correo electrónico"
-								onChange={event => setEmailRecover(event.target.value)}
-								value={emailRecover}
-							/>
-						</Form.Group>
+							<Button variant="dark" type="submit">
+								Enviar correo
+							</Button>
 
-						<Button variant="dark" type="submit">
-							Enviar contraseña
-						</Button>
-
-						<Link to="/" role="button" className="w-25 btn btn-light m-3" variant="light" type="submit">
-							Cancelar
-						</Link>
-					</Form>
-					{auth ? <Redirect to="/" /> : null}
+							<Link to="/" role="button" className="btn btn-light ml-2" variant="light" type="submit">
+								Cancelar
+							</Link>
+						</Form>
+						{auth ? <Redirect to="/login" /> : null}
+					</Card>
 				</Col>
 			</Row>
 		</Container>

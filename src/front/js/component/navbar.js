@@ -1,12 +1,22 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, NavLink, Redirect } from "react-router-dom";
+import "../../styles/navbar.scss";
+
+import { Context } from "../store/appContext";
 
 export const Navbar = () => {
+	const { store, actions } = useContext(Context);
+	const logOut = () => {
+		actions.setToken("");
+		actions.setUserStatus(false);
+		<Redirect to="/" />;
+		alert("Sesión Cerrada");
+	};
 	return (
-		<nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+		<nav className="navbar navbar-expand-sm navbar-dark" id="nav-bar">
 			<Link to="/">
 				<span className="navbar-brand" href="#">
-					Cultiva
+					<i className="fas fa-seedling" /> Cultiva
 				</span>
 			</Link>
 
@@ -21,18 +31,47 @@ export const Navbar = () => {
 				<span className="navbar-toggler-icon" />
 			</button>
 			<div className="collapse navbar-collapse justify-content-end" id="navbarNav">
-				<ul className="navbar-nav">
-					<li className="nav-item">
-						<Link to="/login" className="nav-link">
-							Iniciar sesión
+				{store.userStatus ? (
+					<div>
+						<span className="mr-2 navbar-brand">
+							{store.userData.user.firstName + " " + store.userData.user.lastName}
+						</span>
+						<Link to="/feed" className="mr-2">
+							<span className="navbar-brand" href="#">
+								Feed
+							</span>
 						</Link>
-					</li>
-					<li className="nav-item">
-						<Link to="/register" className="nav-link">
-							Registrar
+						<Link to="/favorites" className="mr-2">
+							<span className="navbar-brand" href="#">
+								<i className="far fa-heart" />
+							</span>
 						</Link>
-					</li>
-				</ul>
+						<Link to="/" className="mr-2">
+							<span className="navbar-brand" href="#" onClick={() => logOut()}>
+								<i className="fas fa-sign-out-alt" />
+							</span>
+						</Link>
+						<Link to="/userconfig" className="mr-2">
+							<span className="navbar-brand" href="#">
+								<i className="fas fa-cog" />
+							</span>
+						</Link>
+					</div>
+				) : (
+					<ul className="navbar-nav">
+						<li />
+						<li className="nav-item">
+							<Link to="/login" className="nav-link">
+								Iniciar sesión
+							</Link>
+						</li>
+						<li className="nav-item">
+							<Link to="/register" className="nav-link">
+								Registrar
+							</Link>
+						</li>
+					</ul>
+				)}
 			</div>
 		</nav>
 	);

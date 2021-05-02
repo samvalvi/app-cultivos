@@ -33,6 +33,9 @@ class Post(db.Model):
     plagas = db.Column(db.String(), nullable=False)
     tipo_de_suelo = db.Column(db.String(), nullable=False)
     preparacion_del_suelo = db.Column(db.String(), nullable=False)
+    descripcion = db.Column(db.String(), nullable=False)
+    url_image = db.Column(db.String(), nullable=False)
+    
 
     def serialize(self):
         return {
@@ -42,24 +45,25 @@ class Post(db.Model):
             "clima": self.clima,
             "cosecha": self.cosecha,
             "tipo_de_suelo": self.tipo_de_suelo,
-            "preparacion_del_suelo": self.preparacion_del_suelo
-            # do not serialize the password, its a security breach
+            "preparacion_del_suelo": self.preparacion_del_suelo,
+            "plagas": self.plagas,
+            "descripcion": self.descripcion,
+            "url_image": self.url_image
         }
 
 class Fav(db.Model):
     __table__name = 'fav'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    veg_fav = db.Column(db.Integer, db.ForeignKey('post.id'))
     name = db.Column(db.String(50), nullable=False)
     user = db.relationship(User)
-    veg = db.relationship(Post)
+    
 
     def serialize(self):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "veg_fav": self.veg_fav,
+            "name": self.name
             # do not serialize the password, its a security breach
         }
     

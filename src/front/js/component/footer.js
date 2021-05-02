@@ -1,24 +1,22 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import "../../styles/footer.scss";
 
 export const Footer = () => {
 	return (
-		<footer className="container-fluid footer mt-auto py-3">
+		<footer className="container-fluid footer mt-auto py-3" id="foot">
 			<div className="row">
-				<div className="col-sm-4">
-					<h4 className="text-center">Footer</h4>
+				<div className="col-sm-4 text-center align-self-center">
+					<i className="fas fa-seedling fa-3x" />
 				</div>
-				<div className="col-sm-4">
-					<h5>Ready to get started?</h5>
-					<p className="text-justify">
-						Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat.
-					</p>
+				<div className="col-sm-4 text-center align-self-center">
+					<h5>Contáctanos</h5>
+					<p className="text-justify text-center align-self-center">cultivacostarica@gmail.com</p>
 				</div>
-				<div className="col-sm-4">
+				<div className="col-sm-4 text-center align-self-center">
 					<h5>
-						<Link to="/about" id="link-nosotros">
-							Nosotros
+						<Link to="/about" className="text-white">
+							Sobre nosotros
 						</Link>
 					</h5>
 					<p>&copy;2021</p>
