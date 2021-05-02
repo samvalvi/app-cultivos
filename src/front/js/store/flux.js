@@ -57,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ token: data });
 			},
 			fetchCultivos() {
-				fetch("https://3001-beige-cod-ips36apn.ws-us03.gitpod.io/api/post")
+				fetch(process.env.BACKEND_URL + "/api/post")
 					.then(response => response.json())
 					.then(result => {
 						setStore({ cultivos: result });
