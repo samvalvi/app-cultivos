@@ -34,7 +34,7 @@ export function Recover() {
 	};
 
 	return (
-		<Container className="p-3 mt-auto">
+		<Container className="p-3 mt-5">
 			<Row className="justify-content-center">
 				<Col sm={10} lg={8}>
 					<Card className="shadow border-0 p-3">
