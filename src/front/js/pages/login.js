@@ -46,7 +46,7 @@ export const Login = () => {
 	};
 
 	return (
-		<Container className="container-fluid p-3 mt-auto">
+		<Container className="container-fluid p-3 mt-5">
 			<Row className="justify-content-center">
 				<Col sm={10} md={10}>
 					<Card className="col-lg-8 border-0 mx-auto shadow p-3">
