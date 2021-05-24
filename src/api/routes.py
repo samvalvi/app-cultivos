@@ -16,8 +16,6 @@ from sendgrid.helpers.mail import Mail
 #jwt
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 
-# Api Key de sendGrid
-API_KEY = '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'
 
 api = Blueprint('api', __name__)
 
